@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
+# Gem for storing secure passwords for authentication
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 # Rubocop
 gem 'rubocop', '~>0.81.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
