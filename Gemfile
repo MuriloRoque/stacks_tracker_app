@@ -7,6 +7,7 @@ ruby '2.6.5'
 gem "knock", github: "nsarno/knock", branch: "master",
     ref: "9214cd027422df8dc31eb67c60032fbbf8fc100b"
 gem 'jwt'
+gem 'rack-cors', :require => 'rack/cors'
 # Gem for storing secure passwords for authentication
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 # Rubocop
