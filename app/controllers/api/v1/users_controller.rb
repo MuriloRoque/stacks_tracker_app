@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+  wrap_parameters :user, include: %i[email password]
 
   def show
     if user
@@ -14,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
     if user
       render json: user
     else
-      render json: recipe.errors
+      render json: user.errors
     end
   end
 
@@ -24,11 +25,13 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
-    def user
-      user ||= User.find(params[:id])
-    end
 
-    def user_params
-      params.require(:user).permit(:email, :password)
-    end
+  def user
+    user ||= User.find(params[:id])
+    user
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password)
+  end
 end

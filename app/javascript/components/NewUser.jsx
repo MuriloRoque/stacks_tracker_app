@@ -9,13 +9,6 @@ class NewUser extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.stripHtmlEntities = this.stripHtmlEntities.bind(this);
-  }
-
-  stripHtmlEntities(str) {
-    return String(str)
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
   }
 
   onChange(event) {
@@ -64,19 +57,19 @@ class NewUser extends React.Component {
             </h1>
             <form onSubmit={this.onSubmit}>
               <div className="form-group">
-                <label htmlFor="recipeName">Email</label>
+                <label htmlFor="userEmail">Email</label>
                 <input
                   type="text"
                   name="email"
                   id="userEmail"
                   className="form-control"
-                  autoComplete="username"
+                  autoComplete="email"
                   required
                   onChange={this.onChange}
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="recipeIngredients">Password</label>
+                <label htmlFor="userPassword">Password</label>
                 <input
                   type="password"
                   name="password"
@@ -86,7 +79,7 @@ class NewUser extends React.Component {
                   required
                   onChange={this.onChange}
                 />
-                <small id="ingredientsHelp" className="form-text text-muted">
+                <small className="form-text text-muted">
                   At least 6 characters
                 </small>
               </div>
