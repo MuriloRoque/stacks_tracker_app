@@ -4,7 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Gems for User authentication
-gem 'knock'
+gem "knock", github: "nsarno/knock", branch: "master",
+    ref: "9214cd027422df8dc31eb67c60032fbbf8fc100b"
 gem 'jwt'
 # Gem for storing secure passwords for authentication
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'

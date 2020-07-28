@@ -1,2 +1,2 @@
-class Api::UserTokenController < Knock::AuthTokenController
+class Api::V1::UserTokenController < Knock::AuthTokenController
 end

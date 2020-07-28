@@ -8,8 +8,8 @@ export default (
   <Router>
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/user" exact component={NewUser} />
-      <Route path="/user/:id" exact component={User} />
+      <Route path="/users/create" exact component={NewUser} />
+      <Route path="/users/:id" exact component={User} />
     </Switch>
   </Router>
 );
