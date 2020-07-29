@@ -22,8 +22,8 @@
   "ignorePatterns": [
     "dist/",
     "build/",
-    "public/",
-    "babel.config.js",
-    "postcss.config.js"
+    "public",
+    "postcss.config.js",
+    "babel.config.js"
   ]
 }

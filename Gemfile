@@ -3,11 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
+# Gem for ESlint
+gem 'eslint-rails'
 # Gems for User authentication
-gem "knock", github: "nsarno/knock", branch: "master",
-    ref: "9214cd027422df8dc31eb67c60032fbbf8fc100b"
 gem 'jwt'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'knock', github: 'nsarno/knock', branch: 'master',
+             ref: '9214cd027422df8dc31eb67c60032fbbf8fc100b'
+gem 'rack-cors', require: 'rack/cors'
 # Gem for storing secure passwords for authentication
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 # Rubocop
@@ -42,8 +44,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.7', '>= 2.7.1'
   gem 'rspec-rails', '~> 3.4', '>= 3.4.2'
-  gem 'shoulda-matchers', '~> 4.3'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.7'
+  gem 'shoulda-matchers', '~> 4.3'
   gem 'webdrivers', '~> 4.4', '>= 4.4.1'
 end
 

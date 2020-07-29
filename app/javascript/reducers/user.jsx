@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 
-const initialState = { email: '', password: '', passwordConfirmation: '', registrationErrors: ''};
+const initialState = { email: '', password: '', passwordConfirmation: '', registrationErrors: '', loginErrors: ''};
 
 export default (state = initialState, action) => {
   switch(action.type) {

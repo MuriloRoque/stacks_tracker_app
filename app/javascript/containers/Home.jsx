@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import Registration from "./auth/Registration";
 import axios from 'axios';
 import { login, updateData, logout, resetData } from '../actions/index';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
+import PropTypes from 'prop-types';
 
-const Home = ({history, loginStatus, updateData, login, logout, resetData}) => {
+const Home = ({ loginStatus, updateData, login, logout, resetData}) => {
 
   const checkLoginStatus = () => {
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
@@ -38,10 +39,31 @@ const Home = ({history, loginStatus, updateData, login, logout, resetData}) => {
 
   return (
     <div>
-      <Registration history={history} />
-      <button onClick={handleLogout}>Logout</button>
+      {
+        loginStatus === 'NOT_LOGGED_IN' ?
+        <div className='container py-5'>
+          <Link to='/login' className="btn custom-button">
+              Login
+          </Link>
+          <Link to='/signup' className="btn custom-button">
+              Signup
+          </Link>
+        </div> :
+        <div className='container py-5'>
+          <h1>Welcome to the App!</h1>
+          <button className="btn custom-button" onClick={handleLogout}>Logout</button>
+        </div>
+      }
     </div>
   );
+}
+
+Home.propTypes = {
+  loginStatus: PropTypes.string.isRequired,
+  updateData: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  resetData: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

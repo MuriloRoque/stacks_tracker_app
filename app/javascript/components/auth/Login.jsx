@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-const Registration = ({ user, updateData, login }) => {
+const Login = ({ user, updateData, login }) => {
 
   const history = useHistory();
 
@@ -19,13 +19,13 @@ const Registration = ({ user, updateData, login }) => {
   }
 
   const handleSubmit = (e) => {
-    axios.post('http://localhost:3000/registrations', { user: user },
+    axios.post('http://localhost:3000/sessions', { user: user },
     { withCredentials: true }).then(response => {
-      if (response.data.status === 'created'){
+      if (response.data.logged_in){
         successfulAuth();
       }
     }).catch(error => {
-      updateData('registrationErrors', error.response.statusText);
+      updateData('loginErrors', error.response.statusText);
     })
     e.preventDefault();
   }
@@ -67,27 +67,11 @@ const Registration = ({ user, updateData, login }) => {
                 At least 6 characters
               </small>
             </div>
-              <div className="form-group">
-                <label htmlFor="userPasswordConfirmation">Confirm password</label>
-                <input
-                  type="password"
-                  name="userPasswordConfirmation"
-                  id="userPasswordConfirmation"
-                  placeholder='Password confirmation'
-                  className="form-control"
-                  autoComplete="new-password"
-                  required
-                  onChange={updateDataChange}
-                />
-                <small className="form-text text-muted">
-                  At least 6 characters
-                </small>
-              </div>
             <div>
-              <h4>{user.registrationErrors}</h4>
+              <h4>{user.loginErrors}</h4>
             </div>
             <button type="submit" className="btn custom-button mt-3">
-              Create User
+              Login
             </button>
           </form>
         </div>
@@ -96,12 +80,11 @@ const Registration = ({ user, updateData, login }) => {
   );
 }
 
-Registration.propTypes = {
+Login.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
-    passwordConfirmation: PropTypes.string.isRequired,
-    registrationErrors: PropTypes.string.isRequired,
+    loginErrors: PropTypes.string.isRequired,
   }).isRequired,
   updateData: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
@@ -116,4 +99,4 @@ const mapDispatchToProps = dispatch => ({
   login: () => dispatch(login()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
