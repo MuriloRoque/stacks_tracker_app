@@ -50,8 +50,19 @@ const Home = ({ loginStatus, updateData, login, logout, resetData, user}) => {
           </Link>
         </div> :
         <div className='container py-5'>
-          <h1>Welcome {user.email}</h1>
+          <div><h1>Welcome {user.email}</h1></div>
+          <div>
           <button className="btn custom-button" onClick={handleLogout}>Logout</button>
+          </div>
+          <div>
+            <Link
+            to="/stacks"
+            className="btn btn-lg custom-button"
+            role="button"
+          >
+            Track.it
+          </Link>
+          </div>
         </div>
       }
     </div>
