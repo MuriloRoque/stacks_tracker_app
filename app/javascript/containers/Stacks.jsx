@@ -35,7 +35,6 @@ const Stacks = ({ loginStatus, updateData, login, logout, resetData, stacks, fee
     axios.get('http://localhost:3000/api/v1/stacks/index', { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
-          console.log(response.data)
           feedStacks(response.data)
         }
       }).catch(error => {
@@ -43,11 +42,18 @@ const Stacks = ({ loginStatus, updateData, login, logout, resetData, stacks, fee
       })
   }
   const allStacks = stacks.map(stack => (
-    <div key={stack.name} className="col-md-6 col-lg-4">
+    <div key={stack.id} className="col-md-6 col-lg-4">
       <div className="card mb-4">
         <div className="card-body">
           <h5 className="card-title">{stack.name}</h5>
-            <Link to={`/stack/${stack.id}`} className="btn custom-button">
+            <Link to={{pathname: `/stack/${stack.id}`,
+                       state: 
+                       {name: stack.name,
+                        hours: stack.hours,
+                        hoursGoal: stack.hours_goal,
+                        projects: stack.projects,
+                        projectsGoal: stack.projects_goal}}}
+                        className="btn custom-button">
               View Stack
             </Link>
           </div>
