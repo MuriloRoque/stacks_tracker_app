@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-const Home = ({ loginStatus, updateData, login, logout, resetData}) => {
+const Home = ({ loginStatus, updateData, login, logout, resetData, user}) => {
 
   const checkLoginStatus = () => {
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
@@ -50,7 +50,7 @@ const Home = ({ loginStatus, updateData, login, logout, resetData}) => {
           </Link>
         </div> :
         <div className='container py-5'>
-          <h1>Welcome to the App!</h1>
+          <h1>Welcome {user.email}</h1>
           <button className="btn custom-button" onClick={handleLogout}>Logout</button>
         </div>
       }
@@ -64,10 +64,14 @@ Home.propTypes = {
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   resetData: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 const mapStateToProps = state => ({
   loginStatus: state.loginStatus,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
