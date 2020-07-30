@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export default ({location}) => {
-  const {name, hours, hoursGoal, projects, projectsGoal} = location.state
+const Stack = ({ location }) => {
+  const {
+    name, hours, hoursGoal, projects, projectsGoal,
+  } = location.state;
   return (
     <div className="">
       <div className="hero position-relative d-flex align-items-center justify-content-center">
@@ -40,4 +43,18 @@ export default ({location}) => {
       </div>
     </div>
   );
-}
+};
+
+Stack.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      hours: PropTypes.number.isRequired,
+      hoursGoal: PropTypes.number.isRequired,
+      projects: PropTypes.number.isRequired,
+      projectsGoal: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
+};
+
+export default Stack;

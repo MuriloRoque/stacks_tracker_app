@@ -18,7 +18,13 @@ export const logout = () => ({
   type: types.LOGOUT,
 });
 
-export const feedStacks = (data) => ({
+export const feedStacks = data => ({
   type: types.FEED_STACKS,
   data,
-})
+});
+
+export const createStack = (name, data) => ({
+  type: types.CREATE_STACK,
+  name,
+  data,
+});

@@ -1,27 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { login, updateData, logout, resetData } from '../actions/index';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {
+  login, updateData, logout, resetData,
+} from '../actions/index';
 
-const Home = ({ loginStatus, updateData, login, logout, resetData, user}) => {
-
+const Home = ({
+  loginStatus, updateData, login, logout, resetData, user,
+}) => {
   const checkLoginStatus = () => {
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
-    .then(response => {
-      if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-        login();
-        updateData('email', response.data.user.email);
-      }
-      else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-        logout();
-        resetData();
-      }
-    }).catch(error => {
-      console.log('check login errors', error);
-    })
-  }
+      .then(response => {
+        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
+          login();
+          updateData('email', response.data.user.email);
+        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
+          logout();
+          resetData();
+        }
+      });
+  };
 
   useEffect(() => {
     checkLoginStatus();
@@ -29,66 +29,73 @@ const Home = ({ loginStatus, updateData, login, logout, resetData, user}) => {
 
   const handleLogout = () => {
     axios.delete('http://localhost:3000/logout', { withCredentials: true })
-    .then(response => {
-      logout();
-      resetData();
-    }).catch(error => {
-      console.log('logout error', error)
-    })
-  }
+      .then(() => {
+        logout();
+        resetData();
+      });
+  };
 
   return (
     <div>
       {
-        loginStatus === 'NOT_LOGGED_IN' ?
-        <div className='container py-5'>
-          <Link to='/login' className="btn custom-button">
-              Login
-          </Link>
-          <Link to='/signup' className="btn custom-button">
-              Signup
-          </Link>
-        </div> :
-        <div className='container py-5'>
-          <div><h1>Welcome {user.email}</h1></div>
-          <div>
-          <button className="btn custom-button" onClick={handleLogout}>Logout</button>
-          </div>
-          <div>
-            <Link
-            to="/stacks"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Track.it
-            </Link>
-            <Link
-            to="/new_stack"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Add Stack
-            </Link>
-            <Link
-            to="/progress"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Your progress
-            </Link>
-            <Link
-            to="/"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Home
-            </Link>
-          </div>
-        </div>
+        loginStatus === 'NOT_LOGGED_IN'
+          ? (
+            <div className="container py-5">
+              <Link to="/login" className="btn custom-button">
+                Login
+              </Link>
+              <Link to="/signup" className="btn custom-button">
+                Signup
+              </Link>
+            </div>
+          )
+          : (
+            <div className="container py-5">
+              <div>
+                <h1>
+                  Welcome
+                  {user.email}
+                </h1>
+              </div>
+              <div>
+                <button type="button" className="btn custom-button" onClick={handleLogout}>Logout</button>
+              </div>
+              <div>
+                <Link
+                  to="/stacks"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Track.it
+                </Link>
+                <Link
+                  to="/stack"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Add Stack
+                </Link>
+                <Link
+                  to="/progress"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Your progress
+                </Link>
+                <Link
+                  to="/"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Home
+                </Link>
+              </div>
+            </div>
+          )
       }
     </div>
   );
-}
+};
 
 Home.propTypes = {
   loginStatus: PropTypes.string.isRequired,
@@ -99,7 +106,7 @@ Home.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
-}
+};
 
 const mapStateToProps = state => ({
   loginStatus: state.loginStatus,

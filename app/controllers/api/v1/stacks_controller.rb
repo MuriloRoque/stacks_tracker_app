@@ -5,9 +5,14 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def create
-    stack = Stack.create!(stack_params)
+    stack = Stack.create!(name: params['stack']['name'],
+                          hours: params['stack']['hours'],
+                          hours_goal: params['stack']['hoursGoal'],
+                          projects: params['stack']['projects'],
+                          projects_goal: params['stack']['projectsGoal'],
+                          user_id: params['stack']['userId'])
     if stack
-      render json: stack
+      render json: { status: :created, stack: stack }
     else
       stack json: stack.errors
     end

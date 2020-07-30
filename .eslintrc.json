@@ -19,6 +19,17 @@
     "no-shadow": "off",
     "arrow-parens": ["error", "as-needed"]
   },
+  "overrides": [
+    {
+      "files": [ "app/javascript/**/*.jsx" ],
+      "rules": {
+        "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+        "import/no-unresolved": "off",
+        "no-shadow": "off",
+        "arrow-parens": ["error", "as-needed"]
+      }
+    }
+  ],
   "ignorePatterns": [
     "dist/",
     "build/",

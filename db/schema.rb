@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_083838) do
+ActiveRecord::Schema.define(version: 2020_07_30_204411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2020_07_30_083838) do
   create_table "stacks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
-    t.decimal "hours", default: "0.0", null: false
-    t.decimal "hours_goal", default: "0.0", null: false
+    t.integer "hours", default: 0, null: false
+    t.integer "hours_goal", default: 0, null: false
     t.integer "projects", default: 0, null: false
     t.integer "projects_goal", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false

@@ -1,64 +1,66 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { login, updateData, logout, resetData, feedStacks } from '../actions/index';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import {
+  login, updateData, logout, resetData, feedStacks,
+} from '../actions/index';
 
-const Stacks = ({ loginStatus, updateData, login, logout, resetData, stacks, feedStacks }) => {
-
+const Stacks = ({
+  loginStatus, updateData, login, logout, resetData, stacks, feedStacks,
+}) => {
   const checkLoginStatus = () => {
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
-    .then(response => {
-      if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-        login();
-        updateData('email', response.data.user.email);
-      }
-      else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-        logout();
-        resetData();
-      }
-    }).catch(error => {
-      console.log('check login errors', error);
-    })
-  }
-
-  useEffect(() => {
-    checkLoginStatus();
-  }, [checkLoginStatus]);
-
-  useEffect(() => {
-    fetchStacks();
-  }, [fetchStacks]);
+      .then(response => {
+        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
+          login();
+          updateData('email', response.data.user.email);
+        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
+          logout();
+          resetData();
+        }
+      });
+  };
 
   const fetchStacks = () => {
     axios.get('http://localhost:3000/api/v1/stacks/index', { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
-          feedStacks(response.data)
+          feedStacks(response.data);
         }
-      }).catch(error => {
-        console.log('check stacks fetch errors', error);
-      })
-  }
+      });
+  };
+
+  useEffect(() => {
+    checkLoginStatus();
+    fetchStacks();
+  }, []);
+
   const allStacks = stacks.map(stack => (
     <div key={stack.id} className="col-md-6 col-lg-4">
       <div className="card mb-4">
         <div className="card-body">
           <h5 className="card-title">{stack.name}</h5>
-            <Link to={{pathname: `/stack/${stack.id}`,
-                       state: 
-                       {name: stack.name,
-                        hours: stack.hours,
-                        hoursGoal: stack.hours_goal,
-                        projects: stack.projects,
-                        projectsGoal: stack.projects_goal}}}
-                        className="btn custom-button">
-              View Stack
-            </Link>
-          </div>
+          <Link
+            to={{
+              pathname: `/stack/${stack.id}`,
+              state:
+                       {
+                         name: stack.name,
+                         hours: stack.hours,
+                         hoursGoal: stack.hours_goal,
+                         projects: stack.projects,
+                         projectsGoal: stack.projects_goal,
+                       },
+            }}
+            className="btn custom-button"
+          >
+            View Stack
+          </Link>
         </div>
       </div>
+    </div>
   ));
 
   const noStack = (
@@ -69,7 +71,7 @@ const Stacks = ({ loginStatus, updateData, login, logout, resetData, stacks, fee
     </div>
   );
 
-  return(
+  return (
     <>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container py-5">
@@ -87,38 +89,38 @@ const Stacks = ({ loginStatus, updateData, login, logout, resetData, stacks, fee
         </main>
       </div>
       <div>
-            <Link
-            to="/stacks"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Track.it
-            </Link>
-            <Link
-            to="/new_stack"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Add Stack
-            </Link>
-            <Link
-            to="/progress"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Your progress
-            </Link>
-            <Link
-            to="/"
-            className="btn btn-lg custom-button"
-            role="button"
-          >
-            Home
-            </Link>
-          </div>
+        <Link
+          to="/stacks"
+          className="btn btn-lg custom-button"
+          role="button"
+        >
+          Track.it
+        </Link>
+        <Link
+          to="/stack"
+          className="btn btn-lg custom-button"
+          role="button"
+        >
+          Add Stack
+        </Link>
+        <Link
+          to="/progress"
+          className="btn btn-lg custom-button"
+          role="button"
+        >
+          Your progress
+        </Link>
+        <Link
+          to="/"
+          className="btn btn-lg custom-button"
+          role="button"
+        >
+          Home
+        </Link>
+      </div>
     </>
-  )
-}
+  );
+};
 
 Stacks.propTypes = {
   loginStatus: PropTypes.string.isRequired,
@@ -127,8 +129,8 @@ Stacks.propTypes = {
   logout: PropTypes.func.isRequired,
   resetData: PropTypes.func.isRequired,
   feedStacks: PropTypes.func.isRequired,
-  stacks: PropTypes.array.isRequired,
-}
+  stacks: PropTypes.instanceOf(Array).isRequired,
+};
 
 const mapStateToProps = state => ({
   loginStatus: state.loginStatus,
@@ -140,7 +142,7 @@ const mapDispatchToProps = dispatch => ({
   login: () => dispatch(login()),
   logout: () => dispatch(logout()),
   resetData: () => dispatch(resetData()),
-  feedStacks: (data) => dispatch(feedStacks(data)),
+  feedStacks: data => dispatch(feedStacks(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stacks);

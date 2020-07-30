@@ -1,36 +1,35 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 import axios from 'axios';
-import { updateData, login } from '../../actions/index';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import { updateData, login } from '../../actions/index';
 
 const Registration = ({ user, updateData, login }) => {
-
   const history = useHistory();
 
-  const updateDataChange = useCallback(event => {
-    updateData(event.target.name, event.target.value);
+  const updateDataChange = useCallback(e => {
+    updateData(e.target.name, e.target.value);
   }, [updateData]);
 
   const successfulAuth = () => {
-    login()
-    history.push('/')
-  }
+    login();
+    history.push('/');
+  };
 
-  const handleSubmit = (e) => {
-    axios.post('http://localhost:3000/registrations', { user: user },
-    { withCredentials: true }).then(response => {
-      if (response.data.status === 'created'){
+  const handleSubmit = e => {
+    axios.post('http://localhost:3000/registrations', { user },
+      { withCredentials: true }).then(response => {
+      if (response.data.status === 'created') {
         successfulAuth();
       }
     }).catch(error => {
       updateData('registrationErrors', error.response.statusText);
-    })
+    });
     e.preventDefault();
-  }
+  };
 
-  return(
+  return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-sm-12 col-lg-6 offset-lg-3">
@@ -39,50 +38,56 @@ const Registration = ({ user, updateData, login }) => {
           </h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="userEmail">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="userEmail"
-                placeholder='E-mail'
-                className="form-control"
-                autoComplete="email"
-                required
-                onChange={updateDataChange}
-              />
+              <label htmlFor="userEmail">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  id="userEmail"
+                  placeholder="E-mail"
+                  className="form-control"
+                  autoComplete="email"
+                  required
+                  onChange={updateDataChange}
+                />
+              </label>
             </div>
             <div className="form-group">
-              <label htmlFor="userPassword">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="userPassword"
-                placeholder='Password'
-                className="form-control"
-                autoComplete="new-password"
-                required
-                onChange={updateDataChange}
-              />
-              <small className="form-text text-muted">
-                At least 6 characters
-              </small>
-            </div>
-              <div className="form-group">
-                <label htmlFor="userPasswordConfirmation">Confirm password</label>
+              <label htmlFor="userPassword">
+                Password
                 <input
                   type="password"
-                  name="userPasswordConfirmation"
-                  id="userPasswordConfirmation"
-                  placeholder='Password confirmation'
+                  name="password"
+                  id="userPassword"
+                  placeholder="Password"
                   className="form-control"
                   autoComplete="new-password"
                   required
                   onChange={updateDataChange}
                 />
-                <small className="form-text text-muted">
-                  At least 6 characters
-                </small>
-              </div>
+              </label>
+              <small className="form-text text-muted">
+                At least 6 characters
+              </small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="userPasswordConfirmation">
+                Confirm password
+                <input
+                  type="password"
+                  name="userPasswordConfirmation"
+                  id="userPasswordConfirmation"
+                  placeholder="Password confirmation"
+                  className="form-control"
+                  autoComplete="new-password"
+                  required
+                  onChange={updateDataChange}
+                />
+              </label>
+              <small className="form-text text-muted">
+                At least 6 characters
+              </small>
+            </div>
             <div>
               <h4>{user.registrationErrors}</h4>
             </div>
@@ -94,7 +99,7 @@ const Registration = ({ user, updateData, login }) => {
       </div>
     </div>
   );
-}
+};
 
 Registration.propTypes = {
   user: PropTypes.shape({
@@ -105,7 +110,7 @@ Registration.propTypes = {
   }).isRequired,
   updateData: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
-}
+};
 
 const mapStateToProps = state => ({
   user: state.user,
