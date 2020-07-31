@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStack } from '../actions/index';
 
-const NewStack = ({
-  stack, createStack, loginStatus, user,
+const EditStack = ({
+  stack, createStack, loginStatus, user, match,
 }) => {
   const history = useHistory();
+  const { id } = match.params;
 
   const checkLoginStatus = () => {
     if (loginStatus === 'NOT_LOGGED_IN') {
@@ -25,15 +26,11 @@ const NewStack = ({
     createStack(e.target.name, e.target.value);
   }, [createStack]);
 
-  const successfulCreate = id => {
-    history.push(`/stack/${id}`);
-  };
-
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/api/v1/stacks/create', { stack },
+    axios.put(`http://localhost:3000/api/v1/update/${id}`, { stack },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
-        successfulCreate(response.data.stack.id);
+        history.push(`/stack/${id}`);
       }
     }).catch(error => {
       createStack('createErrors', error.response.statusText);
@@ -53,6 +50,7 @@ const NewStack = ({
               <label htmlFor="stackName">
                 Stack name
                 <input
+                  defaultValue={stack.name}
                   type="text"
                   name="name"
                   id="stackName"
@@ -70,6 +68,7 @@ const NewStack = ({
                   type="number"
                   name="hours"
                   id="stackHours"
+                  defaultValue={stack.hours}
                   pattern="[0-9]+([\.,][0-9]+)?"
                   step="0.01"
                   inputMode="numeric"
@@ -87,6 +86,7 @@ const NewStack = ({
                   type="number"
                   name="hoursGoal"
                   id="stackHoursGoal"
+                  defaultValue={stack.hoursGoal}
                   pattern="[0-9]+([\.,][0-9]+)?"
                   step="0.01"
                   inputMode="numeric"
@@ -104,6 +104,7 @@ const NewStack = ({
                   type="number"
                   name="projects"
                   id="stackProjects"
+                  defaultValue={stack.projects}
                   pattern="[0-9]+([\.,][0-9]+)?"
                   step="0.01"
                   inputMode="numeric"
@@ -121,6 +122,7 @@ const NewStack = ({
                   type="number"
                   name="projectsGoal"
                   id="stackProjectsGoal"
+                  defaultValue={stack.projectsGoal}
                   pattern="[0-9]+([\.,][0-9]+)?"
                   step="0.01"
                   inputMode="numeric"
@@ -135,10 +137,10 @@ const NewStack = ({
               <h4>{stack.createErrors}</h4>
             </div>
             <button type="submit" className="btn custom-button mt-3">
-              Create Stack
+              Save Changes
             </button>
-            <Link to="/stacks" className="btn btn-link mt-3">
-              Back to stacks
+            <Link to={`/stack/${id}`} className="btn btn-link mt-3">
+              Back to stack
             </Link>
           </form>
         </div>
@@ -147,7 +149,7 @@ const NewStack = ({
   );
 };
 
-NewStack.propTypes = {
+EditStack.propTypes = {
   stack: PropTypes.shape({
     name: PropTypes.string.isRequired,
     hours: PropTypes.oneOfType([
@@ -171,14 +173,12 @@ NewStack.propTypes = {
   createStack: PropTypes.func.isRequired,
   loginStatus: PropTypes.string.isRequired,
   user: PropTypes.shape({
-    userId: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    passwordConfirmation: PropTypes.string.isRequired,
-    registrationErrors: PropTypes.string.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };
 
@@ -192,4 +192,4 @@ const mapDispatchToProps = dispatch => ({
   createStack: (name, data) => dispatch(createStack(name, data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewStack);
+export default connect(mapStateToProps, mapDispatchToProps)(EditStack);

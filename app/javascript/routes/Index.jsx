@@ -6,6 +6,7 @@ import Login from '../components/auth/Login';
 import Stacks from '../containers/Stacks';
 import Stack from '../components/Stack';
 import NewStack from '../components/NewStack';
+import EditStack from '../components/EditStack';
 
 export default (
   <Router>
@@ -16,6 +17,7 @@ export default (
       <Route path="/stacks" exact component={Stacks} />
       <Route path="/stack/:id" exact component={Stack} />
       <Route path="/stack" exact component={NewStack} />
+      <Route path="/edit/:id" exact component={EditStack} />
     </Switch>
   </Router>
 );

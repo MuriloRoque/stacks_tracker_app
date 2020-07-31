@@ -66,6 +66,13 @@ const Stack = ({
             </div>
           </div>
           <div className="col-sm-12 col-lg-2">
+            <Link
+              to={`/edit/${id}`}
+              className="btn btn-lg custom-button"
+              role="button"
+            >
+              Edit Stack
+            </Link>
             <button onClick={deleteStack} type="button" className="btn btn-danger">
               Delete Stack
             </button>
@@ -84,10 +91,22 @@ Stack.propTypes = {
   createStack: PropTypes.func.isRequired,
   stack: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    hours: PropTypes.number.isRequired,
-    hoursGoal: PropTypes.number.isRequired,
-    projects: PropTypes.number.isRequired,
-    projectsGoal: PropTypes.number.isRequired,
+    hours: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    hoursGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projects: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    projectsGoal: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({

@@ -27,8 +27,13 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def update
-    if stack.update(stack_params)
-      render json: stack
+    if stack.update(name: params['stack']['name'],
+                    hours: params['stack']['hours'],
+                    hours_goal: params['stack']['hoursGoal'],
+                    projects: params['stack']['projects'],
+                    projects_goal: params['stack']['projectsGoal'],
+                    user_id: params['stack']['userId'])
+                    render json: { status: :created, stack: stack }
     else
       render json: stack.errors
     end
