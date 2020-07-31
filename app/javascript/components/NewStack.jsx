@@ -3,28 +3,18 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  createStack, login, updateData, logout, resetData,
-} from '../actions/index';
+import { createStack } from '../actions/index';
 
 const NewStack = ({
-  stack, createStack, loginStatus, login, updateData, logout, resetData,
+  stack, createStack, loginStatus, user,
 }) => {
   const history = useHistory();
 
   const checkLoginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', { withCredentials: true })
-      .then(response => {
-        createStack('userId', response.data.user.id);
-        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-          login();
-          updateData('email', response.data.user.email);
-          updateData('userId', response.data.user.id);
-        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-          logout();
-          resetData();
-        }
-      });
+    if (loginStatus === 'NOT_LOGGED_IN') {
+      history.push('/');
+    }
+    createStack('userId', user.userId);
   };
 
   useEffect(() => {
@@ -50,6 +40,7 @@ const NewStack = ({
     });
     e.preventDefault();
   };
+
   return (
     <div className="container mt-5">
       <div className="row">
@@ -171,23 +162,23 @@ NewStack.propTypes = {
   }).isRequired,
   createStack: PropTypes.func.isRequired,
   loginStatus: PropTypes.string.isRequired,
-  updateData: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  resetData: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    userId: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    passwordConfirmation: PropTypes.string.isRequired,
+    registrationErrors: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = state => ({
   stack: state.stack,
   loginStatus: state.loginStatus,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
   createStack: (name, data) => dispatch(createStack(name, data)),
-  updateData: (name, data) => dispatch(updateData(name, data)),
-  login: () => dispatch(login()),
-  logout: () => dispatch(logout()),
-  resetData: () => dispatch(resetData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewStack);

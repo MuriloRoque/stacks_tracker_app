@@ -1,29 +1,17 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  login, updateData, logout, resetData, feedStacks,
-} from '../actions/index';
+import { feedStacks } from '../actions/index';
 
-const Stacks = ({
-  loginStatus, updateData, login, logout, resetData, stacks, feedStacks,
-}) => {
-  const checkLoginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', { withCredentials: true })
-      .then(response => {
-        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-          login();
-          updateData('email', response.data.user.email);
-        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-          logout();
-          resetData();
-        }
-      });
-  };
+const Stacks = ({ stacks, feedStacks, loginStatus }) => {
+  const history = useHistory();
 
   const fetchStacks = () => {
+    if (loginStatus === 'NOT_LOGGED_IN') {
+      history.push('/');
+    }
     axios.get('http://localhost:3000/api/v1/stacks/index', { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
@@ -33,7 +21,6 @@ const Stacks = ({
   };
 
   useEffect(() => {
-    checkLoginStatus();
     fetchStacks();
   }, []);
 
@@ -123,25 +110,17 @@ const Stacks = ({
 };
 
 Stacks.propTypes = {
-  loginStatus: PropTypes.string.isRequired,
-  updateData: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  resetData: PropTypes.func.isRequired,
   feedStacks: PropTypes.func.isRequired,
   stacks: PropTypes.instanceOf(Array).isRequired,
+  loginStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
-  loginStatus: state.loginStatus,
   stacks: state.stacks,
+  loginStatus: state.loginStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateData: (name, data) => dispatch(updateData(name, data)),
-  login: () => dispatch(login()),
-  logout: () => dispatch(logout()),
-  resetData: () => dispatch(resetData()),
   feedStacks: data => dispatch(feedStacks(data)),
 });
 

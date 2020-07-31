@@ -1,31 +1,20 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import {
-  login, updateData, logout, resetData, createStack,
-} from '../actions/index';
+import { createStack } from '../actions/index';
 
 const Stack = ({
-  loginStatus, updateData, login, logout, resetData, createStack, match, stack,
+  loginStatus, createStack, match, stack,
 }) => {
   const { id } = match.params;
-
-  const checkLoginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', { withCredentials: true })
-      .then(response => {
-        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-          login();
-          updateData('email', response.data.user.email);
-        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-          logout();
-          resetData();
-        }
-      });
-  };
+  const history = useHistory();
 
   const fetchStack = () => {
+    if (loginStatus === 'NOT_LOGGED_IN') {
+      history.push('/');
+    }
     axios.get(`http://localhost:3000/api/v1/show/${id}`, { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
@@ -39,7 +28,6 @@ const Stack = ({
   };
 
   useEffect(() => {
-    checkLoginStatus();
     fetchStack();
   }, []);
 
@@ -84,10 +72,6 @@ const Stack = ({
 
 Stack.propTypes = {
   loginStatus: PropTypes.string.isRequired,
-  updateData: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  resetData: PropTypes.func.isRequired,
   createStack: PropTypes.func.isRequired,
   stack: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -109,10 +93,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateData: (name, data) => dispatch(updateData(name, data)),
-  login: () => dispatch(login()),
-  logout: () => dispatch(logout()),
-  resetData: () => dispatch(resetData()),
   createStack: (name, data) => dispatch(createStack(name, data)),
 });
 
