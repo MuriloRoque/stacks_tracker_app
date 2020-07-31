@@ -24,24 +24,24 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
     fetchProgress();
   }, []);
 
-  const allProgress =  (
+  const allProgress = (
     <div className="col-md-6 col-lg-4">
       <div className="card mb-4">
         <div className="card-body">
           <h5 className="card-title">Hours Completed</h5>
-            <p>{progress.total_hours}</p>
+          <p>{progress.total_hours}</p>
         </div>
         <div className="card-body">
           <h5 className="card-title">Hours Goal</h5>
-            <p>{progress.total_hours_goal}</p>
+          <p>{progress.total_hours_goal}</p>
         </div>
         <div className="card-body">
           <h5 className="card-title">Projects Completed</h5>
-            <p>{progress.total_projects}</p>
+          <p>{progress.total_projects}</p>
         </div>
         <div className="card-body">
           <h5 className="card-title">Projects Goal</h5>
-            <p>{progress.total_projects_goal}</p>
+          <p>{progress.total_projects_goal}</p>
         </div>
       </div>
     </div>

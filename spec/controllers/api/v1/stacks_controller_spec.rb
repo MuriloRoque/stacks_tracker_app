@@ -1,38 +1,75 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::StacksController, type: :controller do
-  describe 'GET #index' do
-    it 'returns http success' do
-      get :index
-      expect(response).to have_http_status(:success)
+describe Api::V1::StacksController do
+  let(:user) { create(:user) }
+  let(:stack) { create(:stack) }
+
+  describe '#show' do
+    subject { get 'show', params: { id: stack.id } }
+
+    context 'as user' do
+      it { is_expected.to be_successful }
+
+      it 'returns valid JSON' do
+        body = JSON.parse(subject.body)
+        expect(body.length).to eq(9)
+      end
     end
   end
 
-  describe 'GET #create' do
-    it 'returns http success' do
-      post :create
-      expect(response).to have_http_status(:success)
+  describe '#create' do
+    let(:stack_params) { { name: nil } }
+
+    subject { post 'create', params: { stack: stack_params } }
+
+    context 'as user' do
+      context 'with valid params' do
+        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+
+        it 'creates a stack' do
+          expect { subject }.to change(Stack, :count).by(1)
+        end
+      end
+
+      context 'with valid params' do
+        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+        it { is_expected.to have_http_status(200) }
+      end
     end
   end
 
-  describe 'GET #show' do
-    it 'returns http success' do
-      get :show
-      expect(response).to have_http_status(:success)
+  describe '#update' do
+    let(:stack_params) { { name: nil } }
+    let(:stack) { create(:stack) }
+
+    subject { put 'update', params: { stack: stack_params, id: stack.id } }
+
+    context 'as user' do
+      context 'with valid params' do
+        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+
+        it 'creates a stack' do
+          expect { subject }.to change(Stack, :count).by(1)
+        end
+      end
+
+      context 'with valid params' do
+        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+        it { is_expected.to have_http_status(200) }
+      end
     end
   end
 
-  describe 'GET #update' do
-    it 'returns http success' do
-      put :update
-      expect(response).to have_http_status(:success)
-    end
-  end
+  describe '#destroy' do
+    let(:stack) { create(:stack) }
+    subject { delete :destroy, params: { id: stack.id } }
 
-  describe 'GET #destroy' do
-    it 'returns http success' do
-      delete :destroy
-      expect(response).to have_http_status(:success)
+    before { stack }
+
+    context 'as user' do
+      it 'removes requested record' do
+        expect { subject }.to change(Stack, :count).by(-1)
+      end
     end
   end
 end

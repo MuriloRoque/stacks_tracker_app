@@ -1,6 +1,6 @@
 class Api::V1::StacksController < ApplicationController
   include CurrentUserConcern
-  
+
   def index
     stack = Stack.user_stacks(@current_user.id).order(created_at: :desc)
     render json: stack
@@ -35,7 +35,7 @@ class Api::V1::StacksController < ApplicationController
                     projects: params['stack']['projects'],
                     projects_goal: params['stack']['projectsGoal'],
                     user_id: params['stack']['userId'])
-                    render json: { status: :created, stack: stack }
+      render json: { status: :created, stack: stack }
     else
       render json: stack.errors
     end

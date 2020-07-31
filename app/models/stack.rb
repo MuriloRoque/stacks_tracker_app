@@ -13,10 +13,10 @@ class Stack < ApplicationRecord
 
   def self.progress_calc(stack)
     hash = {}
-    hash['total_hours'] = stack.inject(0){|sum,e| sum + e.hours }
-    hash['total_hours_goal'] = stack.inject(0){|sum,e| sum + e.hours_goal }
-    hash['total_projects'] = stack.inject(0){|sum,e| sum + e.projects }
-    hash['total_projects_goal'] = stack.inject(0){|sum,e| sum + e.projects_goal }
-    return hash
+    hash['total_hours'] = stack.inject(0) { |sum, e| sum + e.hours }
+    hash['total_hours_goal'] = stack.inject(0) { |sum, e| sum + e.hours_goal }
+    hash['total_projects'] = stack.inject(0) { |sum, e| sum + e.projects }
+    hash['total_projects_goal'] = stack.inject(0) { |sum, e| sum + e.projects_goal }
+    hash
   end
 end
