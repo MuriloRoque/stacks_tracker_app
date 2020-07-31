@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get '/show/:id', to: 'stacks#show'
       put '/update/:id', to: 'stacks#update'
       delete '/destroy/:id', to: 'stacks#destroy'
-      get '/progress', to: 'stacks#progress'
+      get 'stacks/progress'
     end
   end
   resources :sessions, only: [:create]

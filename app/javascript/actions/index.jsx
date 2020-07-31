@@ -23,6 +23,11 @@ export const feedStacks = data => ({
   data,
 });
 
+export const feedProgress = data => ({
+  type: types.FEED_PROGRESS,
+  data,
+});
+
 export const createStack = (name, data) => ({
   type: types.CREATE_STACK,
   name,

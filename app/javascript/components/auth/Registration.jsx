@@ -12,9 +12,9 @@ const Registration = ({ user, updateData, login }) => {
     updateData(e.target.name, e.target.value);
   }, [updateData]);
 
-  const successfulAuth = (id) => {
+  const successfulAuth = id => {
     login();
-    updateData('userId', id)
+    updateData('userId', id);
     history.push('/');
   };
 

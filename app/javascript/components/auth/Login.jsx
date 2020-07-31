@@ -12,9 +12,9 @@ const Login = ({ user, updateData, login }) => {
     updateData(event.target.name, event.target.value);
   }, [updateData]);
 
-  const successfulAuth = (id) => {
+  const successfulAuth = id => {
     login();
-    updateData('userId', id)
+    updateData('userId', id);
     history.push('/');
   };
 

@@ -47,6 +47,9 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def progress
+    stack = Stack.user_stacks(@current_user.id).order(created_at: :desc)
+    progress_data = Stack.progress_calc(stack)
+    render json: { progress: progress_data }
   end
 
   private

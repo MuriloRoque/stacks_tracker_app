@@ -7,6 +7,7 @@ import Stacks from '../containers/Stacks';
 import Stack from '../components/Stack';
 import NewStack from '../components/NewStack';
 import EditStack from '../components/EditStack';
+import Progress from '../containers/Progress';
 
 export default (
   <Router>
@@ -18,6 +19,7 @@ export default (
       <Route path="/stack/:id" exact component={Stack} />
       <Route path="/stack" exact component={NewStack} />
       <Route path="/edit/:id" exact component={EditStack} />
+      <Route path="/progress" exact component={Progress} />
     </Switch>
   </Router>
 );
