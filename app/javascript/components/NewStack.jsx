@@ -143,6 +143,36 @@ const NewStack = ({
           </form>
         </div>
       </div>
+      <div>
+                <Link
+                  to="/stacks"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Track.it
+                </Link>
+                <Link
+                  to="/stack"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Add Stack
+                </Link>
+                <Link
+                  to="/progress"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Your progress
+                </Link>
+                <Link
+                  to="/"
+                  className="btn btn-lg custom-button"
+                  role="button"
+                >
+                  Home
+                </Link>
+              </div>
     </div>
   );
 };
