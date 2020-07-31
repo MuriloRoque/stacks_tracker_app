@@ -12,8 +12,9 @@ const Registration = ({ user, updateData, login }) => {
     updateData(e.target.name, e.target.value);
   }, [updateData]);
 
-  const successfulAuth = () => {
+  const successfulAuth = (id) => {
     login();
+    updateData('userId', id)
     history.push('/');
   };
 
@@ -21,7 +22,7 @@ const Registration = ({ user, updateData, login }) => {
     axios.post('http://localhost:3000/registrations', { user },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
-        successfulAuth();
+        successfulAuth(response.data.user.id);
       }
     }).catch(error => {
       updateData('registrationErrors', error.response.statusText);

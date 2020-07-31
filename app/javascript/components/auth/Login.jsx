@@ -12,8 +12,9 @@ const Login = ({ user, updateData, login }) => {
     updateData(event.target.name, event.target.value);
   }, [updateData]);
 
-  const successfulAuth = () => {
+  const successfulAuth = (id) => {
     login();
+    updateData('userId', id)
     history.push('/');
   };
 
@@ -21,7 +22,7 @@ const Login = ({ user, updateData, login }) => {
     axios.post('http://localhost:3000/sessions', { user },
       { withCredentials: true }).then(response => {
       if (response.data.logged_in) {
-        successfulAuth();
+        successfulAuth(response.data.user.id);
       }
     }).catch(error => {
       updateData('loginErrors', error.response.statusText);

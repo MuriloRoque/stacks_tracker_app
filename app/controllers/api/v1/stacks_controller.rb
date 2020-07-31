@@ -1,6 +1,8 @@
 class Api::V1::StacksController < ApplicationController
+  include CurrentUserConcern
+  
   def index
-    stack = Stack.all.order(created_at: :desc)
+    stack = Stack.user_stacks(@current_user.id).order(created_at: :desc)
     render json: stack
   end
 
@@ -42,6 +44,9 @@ class Api::V1::StacksController < ApplicationController
   def destroy
     stack&.destroy
     render json: { message: 'Stack deleted!' }
+  end
+
+  def progress
   end
 
   private
