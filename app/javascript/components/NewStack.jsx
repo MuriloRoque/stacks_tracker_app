@@ -15,11 +15,11 @@ const NewStack = ({
   const checkLoginStatus = () => {
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
       .then(response => {
+        createStack('userId', response.data.user.id);
         if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
           login();
           updateData('email', response.data.user.email);
           updateData('userId', response.data.user.id);
-          createStack('userId', response.data.user.id);
         } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
           logout();
           resetData();
@@ -29,7 +29,7 @@ const NewStack = ({
 
   useEffect(() => {
     checkLoginStatus();
-  }, [checkLoginStatus]);
+  }, []);
 
   const createDataChange = useCallback(e => {
     createStack(e.target.name, e.target.value);
