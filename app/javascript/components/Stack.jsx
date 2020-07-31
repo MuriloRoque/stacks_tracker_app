@@ -27,6 +27,15 @@ const Stack = ({
       });
   };
 
+  const deleteStack = () => {
+    axios.delete(`http://localhost:3000/api/v1/destroy/${id}`, { withCredentials: true })
+      .then(response => {
+        if (response.statusText === 'OK') {
+          history.push('/stacks');
+        }
+      });
+  };
+
   useEffect(() => {
     fetchStack();
   }, []);
@@ -57,7 +66,7 @@ const Stack = ({
             </div>
           </div>
           <div className="col-sm-12 col-lg-2">
-            <button type="button" className="btn btn-danger">
+            <button onClick={deleteStack} type="button" className="btn btn-danger">
               Delete Stack
             </button>
           </div>
