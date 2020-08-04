@@ -91,6 +91,30 @@ body {
   width: 7rem;
 }
 
+.pie-chart-ctn {
+  background-color: #fff;  
+}
+
+.stats-ctn {
+  background-color: #fff;
+  width: 95%;
+  font-size: 2rem;
+}
+
+.stack-img {
+  width: 5rem;
+}
+
+.delete-btn {
+  background-color: #ff0000 !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.stack-buttons {
+  margin-bottom: 5rem;
+}
+
 .button-footer {
   background-color: #313944;
   position: fixed;

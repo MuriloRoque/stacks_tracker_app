@@ -9,6 +9,8 @@ import home from '../../assets/images/home.png';
 import trackIt from '../../assets/images/track-it.png';
 import progress from '../../assets/images/progress.png';
 import { PieChart } from 'react-minimal-pie-chart';
+import projectsImg from '../../assets/images/projects.png';
+import hoursImg from '../../assets/images/hours.png';
 
 const Stack = ({
   loginStatus, createStack, match, stack,
@@ -55,63 +57,67 @@ const Stack = ({
 
   return (
     <div className="h-100 d-flex flex-column">
-      <div className="hero position-relative d-flex align-items-center justify-content-center">
-        <div className="overlay bg-dark position-absolute" />
-        <h1 className="display-4 position-relative">
-          {stack.name}
-        </h1>
+      <div className='header-title'>
+        {stack.name}
       </div>
-      <div className="container py-5">
-        <div className="row">
-          <div className="col-sm-12 col-lg-7">
-          <PieChart
-          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Hours' }]}
-          reveal={result(stack.hours, stack.hoursGoal)}
-          lineWidth={20}
-          animate
-          className='pie-chart'
-          label={({ dataEntry }) => dataEntry.key}
-          labelStyle={{fontSize: '1.6rem'}}
-        />
-        <PieChart
-          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Projects' }]}
-          reveal={result(stack.projects, stack.projectsGoal)}
-          lineWidth={20}
-          animate
-          className='pie-chart'
-          label={({ dataEntry }) => dataEntry.key}
-          labelStyle={{fontSize: '1.6rem'}}
-        />
-            <h5 className="mb-2">Stats</h5>
-            <div>
-              {stack.hours}
+      <div>
+        <div className='pie-chart-ctn d-flex justify-content-around align-items-center p-5'>
+          <div className='d-flex flex-column align-items-center justify-content-around'>
+            <PieChart
+                data={[{ value: 1, key: 1, color: '#8ce08a', key: `${result(stack.hours, stack.hoursGoal)} %` }]}
+                reveal={result(stack.hours, stack.hoursGoal)}
+                lineWidth={20}
+                animate
+                className='pie-chart'
+                label={({ dataEntry }) => dataEntry.key}
+                labelStyle={{fontSize: '1.6rem'}}
+              />
+              <p className='mt-2'>Hours</p>
             </div>
-            <div>
-              {stack.hoursGoal}
-            </div>
-            <div>
-              {stack.projects}
-            </div>
-            <div>
-              {stack.projectsGoal}
+            <div className='d-flex flex-column align-items-center justify-content-around'>
+              <PieChart
+                data={[{ value: 1, key: 1, color: '#8ce08a', key: `${result(stack.projects, stack.projectsGoal)} %` }]}
+                reveal={result(stack.projects, stack.projectsGoal)}
+                lineWidth={20}
+                animate
+                className='pie-chart'
+                label={({ dataEntry }) => dataEntry.key}
+                labelStyle={{fontSize: '1.6rem'}}
+              />
+              <p className='mt-2'>Projects</p>
             </div>
           </div>
-          <div className="col-sm-12 col-lg-2">
+        <div>
+          <div className="d-flex flex-column justify-content-around align-items-center">
+            <div className='mt-3 d-flex justify-content-around align-items-center stats-ctn p-5'>
+              <img className='stack-img' src={hoursImg} alt="hours"/>
+              <div className='text-center ml-1'>
+                {stack.hours} / {stack.hoursGoal} hours completed
+              </div>
+            </div>
+            <div className='mt-3 d-flex justify-content-around align-items-center stats-ctn p-5'>
+              <img className='stack-img' src={projectsImg} alt="projects"/>
+              <div className='text-center ml-1'>
+                {stack.projects} / {stack.projectsGoal} projects completed
+              </div>
+            </div>
+          </div>
+          <div className="d-flex flex-column justify-content-around align-items-center mt-3 stack-buttons">
+            <Link to="/stacks" className="btn btn-lg custom-button mb-3">
+              Back to stacks
+            </Link>
             <Link
               to={`/edit/${id}`}
-              className="btn btn-lg custom-button"
+              className="btn btn-lg custom-button mb-3"
               role="button"
             >
               Edit Stack
             </Link>
-            <button onClick={deleteStack} type="button" className="btn btn-danger">
+            <button onClick={deleteStack} type="button" className="btn btn-lg custom-button delete-btn">
               Delete Stack
             </button>
           </div>
         </div>
-        <Link to="/stacks" className="btn btn-link">
-          Back to stacks
-        </Link>
       </div>
       <div className="footer mt-auto w-100 button-footer d-flex align-items-center">
         <Link
