@@ -46,13 +46,13 @@ const NewStack = ({
   };
 
   return (
-    <div className="">
+    <div>
       <div className="row mx-0">
-        <div className="col-sm-12 col-lg-6 offset-lg-3">
-          <h1 className="font-weight-normal mb-5">
-            Add a new stack to your collection.
-          </h1>
-          <form onSubmit={handleSubmit}>
+        <div className="col-sm-12 col-lg-6 offset-lg-3 px-0">
+          <div className='header-title'>
+              Add stack
+          </div>
+          <form className='add-stack p-5' onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="stackName">
                 Stack name
@@ -141,9 +141,6 @@ const NewStack = ({
             <button type="submit" className="btn mt-3 custom-button">
               Create Stack
             </button>
-            <Link to="/stacks" className="btn btn-link mt-3 custom-button">
-              Back to stacks
-            </Link>
           </form>
         </div>
       </div>

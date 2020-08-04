@@ -59,6 +59,8 @@ body {
 .logout-button {
   background-color: #eeeff1;
   padding: 1rem 1.5rem;
+  border-top: 0.1rem solid #97a3b028;
+  border-bottom: 0.1rem solid #97a3b028;
 }
 
 .logout-button .btn {
@@ -73,6 +75,11 @@ body {
   background-color: transparent !important;
   color: #97a3b0 !important;
   font-weight: 700;
+}
+
+.add-stack {
+  font-size: 1.5rem;
+  color: #313944;
 }
 
 .button-footer {
