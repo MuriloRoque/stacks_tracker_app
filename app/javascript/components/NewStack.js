@@ -46,7 +46,7 @@ const NewStack = ({
   };
 
   return (
-    <div className="container px-0">
+    <div className="">
       <div className="row mx-0">
         <div className="col-sm-12 col-lg-6 offset-lg-3">
           <h1 className="font-weight-normal mb-5">
@@ -138,10 +138,10 @@ const NewStack = ({
             <div>
               <h4>{stack.createErrors}</h4>
             </div>
-            <button type="submit" className="btn custom-button mt-3">
+            <button type="submit" className="btn mt-3 custom-button">
               Create Stack
             </button>
-            <Link to="/stacks" className="btn btn-link mt-3">
+            <Link to="/stacks" className="btn btn-link mt-3 custom-button">
               Back to stacks
             </Link>
           </form>
@@ -150,7 +150,7 @@ const NewStack = ({
       <div className="footer mt-auto w-100 button-footer d-flex align-items-center">
         <Link
           to="/stack"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
           role="button"
         >
           <img className="footer-img" src={addImg} alt="add-stack" />
@@ -158,7 +158,7 @@ const NewStack = ({
         </Link>
         <Link
           to="/stacks"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={trackIt} alt="add-stack" />
@@ -166,7 +166,7 @@ const NewStack = ({
         </Link>
         <Link
           to="/progress"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={progress} alt="add-stack" />
@@ -174,7 +174,7 @@ const NewStack = ({
         </Link>
         <Link
           to="/"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={home} alt="add-stack" />

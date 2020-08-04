@@ -82,7 +82,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
       <div className="footer mt-auto w-100 button-footer d-flex align-items-center">
         <Link
           to="/stack"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={addImg} alt="add-stack" />
@@ -90,7 +90,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
         </Link>
         <Link
           to="/stacks"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
           role="button"
         >
           <img className="footer-img" src={trackIt} alt="add-stack" />
@@ -98,7 +98,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
         </Link>
         <Link
           to="/progress"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={progress} alt="add-stack" />
@@ -106,7 +106,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
         </Link>
         <Link
           to="/"
-          className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
           role="button"
         >
           <img className="footer-img" src={home} alt="add-stack" />

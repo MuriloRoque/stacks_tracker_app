@@ -5,6 +5,7 @@ html {
 
 body {
   height: 100%;
+  background-color: #f3f4f6 !important;
 }
 
 #root {
@@ -37,8 +38,44 @@ body {
   font-size: 1.5rem !important;
 }
 
+.header-title {
+  background-color: #41b5e8;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.user-email {
+  background-color: #fdfdfd;
+  color: #6a7d91;
+  font-weight: 700;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 1.8rem;
+}
+
+.logout-button {
+  background-color: #eeeff1;
+  padding: 1rem 1.5rem;
+}
+
+.logout-button .btn {
+  font-size: 1.5rem !important;
+}
+
+.logout-button .logout-img {
+  width: 5%;
+}
+
+.logout-button .btn {
+  background-color: transparent !important;
+  color: #97a3b0 !important;
+  font-weight: 700;
+}
+
 .button-footer {
-  height: 10%;
   background-color: #313944;
   position: fixed;
   bottom: 0;
@@ -46,7 +83,7 @@ body {
 
 .button-footer .btn {
   color: #acafb4;
-  font-size: 0.8rem;
+  font-size: 10%;
 }
 
 .footer-img {
