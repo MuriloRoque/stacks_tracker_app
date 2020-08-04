@@ -9,6 +9,7 @@
     "@rails/webpacker": "4.2.2",
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
+    "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
@@ -16,12 +17,12 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0",
-    "turbolinks": "^5.2.0",
-    "redux": "^4.0.5",
+    "react-minimal-pie-chart": "^8.0.1",
     "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "axios": "^0.19.2"
+    "turbolinks": "^5.2.0"
   },
   "scripts": {
     "test": "jest --testPathPattern=app/javascript",

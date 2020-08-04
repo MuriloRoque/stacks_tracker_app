@@ -8,6 +8,7 @@ import addImg from '../../assets/images/add-stack.png';
 import home from '../../assets/images/home.png';
 import trackIt from '../../assets/images/track-it.png';
 import progress from '../../assets/images/progress.png';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Stacks = ({ stacks, feedStacks, loginStatus }) => {
   const history = useHistory();
@@ -24,15 +25,41 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
       });
   };
 
+  const result = (hours, goal) => {
+    if (goal === 0) {
+      return 100;
+    }
+    const percentage = hours / goal * 100
+    return percentage >= 100 ? 100 : percentage 
+  }
+
   useEffect(() => {
     fetchStacks();
   }, []);
 
   const allStacks = stacks.map(stack => (
-    <div key={stack.id} className="col-md-6 col-lg-4">
-      <div className="card mb-4">
-        <div className="card-body">
-          <h5 className="card-title">{stack.name}</h5>
+    <div key={stack.id} className="col-md-6 col-lg-4 p-0">
+      <div className="card mb-5 each-stack">
+        <div className="card-body d-flex justify-content-between align-items-center">
+        <PieChart
+          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Hours' }]}
+          reveal={result(stack.hours, stack.hours_goal)}
+          lineWidth={20}
+          animate
+          className='pie-chart'
+          label={({ dataEntry }) => dataEntry.key}
+          labelStyle={{fontSize: '1.6rem'}}
+        />
+        <PieChart
+          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Projects' }]}
+          reveal={result(stack.projects, stack.projects_goal)}
+          lineWidth={20}
+          animate
+          className='pie-chart'
+          label={({ dataEntry }) => dataEntry.key}
+          labelStyle={{fontSize: '1.6rem'}}
+        />
+          <h5 className="card-title m-0">{stack.name}</h5>
           <Link
             to={{
               pathname: `/stack/${stack.id}`,
@@ -64,17 +91,12 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
 
   return (
     <>
-      <section className="jumbotron jumbotron-fluid text-center">
-        <div className="container py-5">
-          <h1 className="display-4">Stacks you are learning</h1>
-          <p className="lead text-muted">
-            This is the stacks page, where you can see all stacks you are currently learning.
-          </p>
-        </div>
-      </section>
-      <div className="py-5">
-        <main className="container">
-          <div className="row">
+      <div className='header-title'>
+        Track.it
+      </div>
+      <div className="py-4">
+        <main className="container p-0">
+          <div className="row m-0">
             {stacks.length > 0 ? allStacks : noStack}
           </div>
         </main>

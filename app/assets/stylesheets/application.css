@@ -82,6 +82,15 @@ body {
   color: #313944;
 }
 
+.each-stack {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.pie-chart {
+  width: 5rem;
+}
+
 .button-footer {
   background-color: #313944;
   position: fixed;

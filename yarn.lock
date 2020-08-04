@@ -8948,6 +8948,11 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-minimal-pie-chart@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-minimal-pie-chart/-/react-minimal-pie-chart-8.0.1.tgz#163224967809d1d2e729c8f5d114d5ba1977b74f"
+  integrity sha512-XbWpt3dLuQn0PDLbrTkdkZh21pf5sraJ2fy37VeeCi9+5ndf+Adnr0alBZ0NaA45tMjPhcSig7pB9afrMm/VDQ==
+
 react-redux@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"
