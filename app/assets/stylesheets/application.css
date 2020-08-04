@@ -11,6 +11,32 @@ body {
   height: 100%;
 }
 
+.login-page {
+  background-color: #349ece;
+}
+
+.login-page h1 {
+  font-size: 3rem;
+}
+
+.login-page label {
+  font-size: 1.5rem;
+  color: #313944;
+}
+
+.login-page small {
+  color: #313944 !important;
+}
+
+.custom-button {
+  background-color: #313944 !important;
+  color: #acafb4 !important;
+  border-radius: 0 !important;
+  border: 0.1rem solid #acafb470 !important;
+  height: 3rem !important;
+  font-size: 1.5rem !important;
+}
+
 .button-footer {
   height: 10%;
   background-color: #313944;

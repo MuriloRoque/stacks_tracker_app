@@ -31,12 +31,9 @@ const Login = ({ user, updateData, login }) => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="d-flex flex-column h-100 justify-content-around align-items-center login-page">
       <div className="row">
         <div className="col-sm-12 col-lg-6 offset-lg-3">
-          <h1 className="font-weight-normal mb-5">
-            Add a new user:
-          </h1>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="userEmail">
