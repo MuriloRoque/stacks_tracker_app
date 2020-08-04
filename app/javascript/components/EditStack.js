@@ -43,13 +43,13 @@ const EditStack = ({
   };
 
   return (
-    <div className="">
-      <div className="">
-        <div className="">
-          <h1 className="font-weight-normal mb-5">
-            Add a new stack to your collection.
-          </h1>
-          <form onSubmit={handleSubmit}>
+    <div>
+      <div className="row mx-0">
+        <div className="col-sm-12 col-lg-6 offset-lg-3 px-0">
+          <div className='header-title'>
+            Edit
+          </div>
+          <form className='add-stack p-5 mb-5'  onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="stackName">
                 Stack name
@@ -140,10 +140,10 @@ const EditStack = ({
             <div>
               <h4>{stack.createErrors}</h4>
             </div>
-            <button type="submit" className="btn mt-3 custom-button">
+            <button type="submit" className="d-block btn mt-3 custom-button mb-3">
               Save Changes
             </button>
-            <Link to={`/stack/${id}`} className="btn btn-link mt-3 custom-button">
+            <Link to={`/stack/${id}`} className="btn btn-lg custom-button">
               Back to stack
             </Link>
           </form>

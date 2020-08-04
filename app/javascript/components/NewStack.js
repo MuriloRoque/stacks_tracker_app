@@ -50,7 +50,7 @@ const NewStack = ({
       <div className="row mx-0">
         <div className="col-sm-12 col-lg-6 offset-lg-3 px-0">
           <div className='header-title'>
-              Add stack
+            Add stack
           </div>
           <form className='add-stack p-5' onSubmit={handleSubmit}>
             <div className="form-group">
