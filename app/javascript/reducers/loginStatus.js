@@ -8,6 +8,8 @@ export default (state = initialState, action) => {
       return 'LOGGED_IN';
     case types.LOGOUT:
       return 'NOT_LOGGED_IN';
+    case types.LOADING:
+        return 'LOADING';
     default:
       return state;
   }

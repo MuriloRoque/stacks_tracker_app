@@ -25,11 +25,11 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
       });
   };
 
-  const result = (hours, goal) => {
-    if (goal === 0) {
+  const result = (hours, hoursGoal, projects, projectsGoal) => {
+    if (hoursGoal + projectsGoal === 0) {
       return 100;
     }
-    const percentage = hours / goal * 100
+    const percentage = (hours + projects) / (hoursGoal + projectsGoal) * 100
     return percentage >= 100 ? 100 : percentage 
   }
 
@@ -42,22 +42,13 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
       <div className="card mb-5 each-stack">
         <div className="card-body d-flex justify-content-between align-items-center">
         <PieChart
-          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Hours' }]}
-          reveal={result(stack.hours, stack.hours_goal)}
+          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Progress' }]}
+          reveal={result(stack.hours, stack.hours_goal, stack.projects, stack.projects_goal)}
           lineWidth={20}
           animate
           className='pie-chart'
           label={({ dataEntry }) => dataEntry.key}
-          labelStyle={{fontSize: '1.6rem'}}
-        />
-        <PieChart
-          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Projects' }]}
-          reveal={result(stack.projects, stack.projects_goal)}
-          lineWidth={20}
-          animate
-          className='pie-chart'
-          label={({ dataEntry }) => dataEntry.key}
-          labelStyle={{fontSize: '1.6rem'}}
+          labelStyle={{fontSize: '1.4rem'}}
         />
           <h5 className="card-title m-0">{stack.name}</h5>
           <Link

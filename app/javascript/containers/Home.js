@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  login, updateData, logout, resetData,
+  login, updateData, logout, resetData, loading
 } from '../actions/index';
 import addImg from '../../assets/images/add-stack.png';
 import home from '../../assets/images/home.png';
@@ -13,9 +13,10 @@ import progress from '../../assets/images/progress.png';
 import logoutIcon from '../../assets/images/logout.png';
 
 const Home = ({
-  loginStatus, updateData, login, logout, resetData, user,
+  loginStatus, updateData, login, logout, loading, resetData, user,
 }) => {
   const checkLoginStatus = () => {
+    loading();
     axios.get('http://localhost:3000/logged_in', { withCredentials: true })
       .then(response => {
         if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
@@ -43,6 +44,7 @@ const Home = ({
   return (
     <div className="h-100">
       {
+        loginStatus !== 'LOADING' &&
         loginStatus === 'NOT_LOGGED_IN'
           ? (
             <div className="d-flex flex-column h-100 justify-content-around align-items-center login-page">
@@ -117,6 +119,7 @@ Home.propTypes = {
   updateData: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  loading: PropTypes.func.isRequired,
   resetData: PropTypes.func.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
@@ -133,6 +136,7 @@ const mapDispatchToProps = dispatch => ({
   login: () => dispatch(login()),
   logout: () => dispatch(logout()),
   resetData: () => dispatch(resetData()),
+  loading: () => dispatch(loading()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

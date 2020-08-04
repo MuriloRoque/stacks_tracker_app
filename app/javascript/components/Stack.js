@@ -8,6 +8,7 @@ import addImg from '../../assets/images/add-stack.png';
 import home from '../../assets/images/home.png';
 import trackIt from '../../assets/images/track-it.png';
 import progress from '../../assets/images/progress.png';
+import { PieChart } from 'react-minimal-pie-chart';
 
 const Stack = ({
   loginStatus, createStack, match, stack,
@@ -40,6 +41,14 @@ const Stack = ({
       });
   };
 
+  const result = (hours, goal) => {
+    if (goal === 0) {
+      return 100;
+    }
+    const percentage = hours / goal * 100
+    return percentage >= 100 ? 100 : percentage 
+  }
+
   useEffect(() => {
     fetchStack();
   }, []);
@@ -55,6 +64,24 @@ const Stack = ({
       <div className="container py-5">
         <div className="row">
           <div className="col-sm-12 col-lg-7">
+          <PieChart
+          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Hours' }]}
+          reveal={result(stack.hours, stack.hoursGoal)}
+          lineWidth={20}
+          animate
+          className='pie-chart'
+          label={({ dataEntry }) => dataEntry.key}
+          labelStyle={{fontSize: '1.6rem'}}
+        />
+        <PieChart
+          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Projects' }]}
+          reveal={result(stack.projects, stack.projectsGoal)}
+          lineWidth={20}
+          animate
+          className='pie-chart'
+          label={({ dataEntry }) => dataEntry.key}
+          labelStyle={{fontSize: '1.6rem'}}
+        />
             <h5 className="mb-2">Stats</h5>
             <div>
               {stack.hours}
