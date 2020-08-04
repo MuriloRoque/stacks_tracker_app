@@ -69,7 +69,7 @@ const Login = ({ user, updateData, login }) => {
               </small>
             </div>
             <div>
-              <h4>{user.loginErrors}</h4>
+              <h4 className='red-error'>{user.loginErrors}</h4>
             </div>
             <button type="submit" className="btn custom-button mt-3">
               Login

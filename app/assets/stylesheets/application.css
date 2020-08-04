@@ -101,6 +101,10 @@ body {
   font-size: 2rem;
 }
 
+.red-error {
+  color: #ff0000;
+}
+
 .stack-img {
   width: 5rem;
 }

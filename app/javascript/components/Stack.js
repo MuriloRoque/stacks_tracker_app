@@ -62,8 +62,8 @@ const Stack = ({
       </div>
       <div>
         <div className='pie-chart-ctn d-flex justify-content-around align-items-center p-5'>
-          <div className='d-flex flex-column align-items-center justify-content-around'>
-            <PieChart
+            <div className='d-flex flex-column align-items-center justify-content-around'>
+              <PieChart
                 data={[{ value: 1, key: 1, color: '#8ce08a', key: `${result(stack.hours, stack.hoursGoal)} %` }]}
                 reveal={result(stack.hours, stack.hoursGoal)}
                 lineWidth={20}

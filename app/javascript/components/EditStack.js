@@ -138,7 +138,7 @@ const EditStack = ({
               </label>
             </div>
             <div>
-              <h4>{stack.createErrors}</h4>
+              <h4 className='red-error'>{stack.createErrors}</h4>
             </div>
             <button type="submit" className="d-block btn mt-3 custom-button mb-3">
               Save Changes

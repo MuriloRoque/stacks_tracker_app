@@ -87,7 +87,7 @@ const Registration = ({ user, updateData, login }) => {
               </small>
             </div>
             <div>
-              <h4>{user.registrationErrors}</h4>
+              <h4 className='red-error'>{user.registrationErrors}</h4>
             </div>
             <button type="submit" className="btn custom-button mt-3">
               Create User
