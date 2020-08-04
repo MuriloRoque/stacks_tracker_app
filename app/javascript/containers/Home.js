@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 import {
   login, updateData, logout, resetData,
 } from '../actions/index';
+import addImg from '../../assets/images/add-stack.png';
+import home from '../../assets/images/home.png';
+import trackIt from '../../assets/images/track-it.png';
+import progress from '../../assets/images/progress.png';
 
 const Home = ({
   loginStatus, updateData, login, logout, resetData, user,
@@ -36,11 +40,11 @@ const Home = ({
   };
 
   return (
-    <div>
+    <div className="h-100">
       {
         loginStatus === 'NOT_LOGGED_IN'
           ? (
-            <div className="container py-5">
+            <div className="container d-flex flex-column h-100">
               <Link to="/login" className="btn custom-button">
                 Login
               </Link>
@@ -50,7 +54,7 @@ const Home = ({
             </div>
           )
           : (
-            <div className="container py-5">
+            <div className="container px-0 d-flex flex-column h-100">
               <div>
                 <h1>
                   Welcome
@@ -60,34 +64,38 @@ const Home = ({
               <div>
                 <button type="button" className="btn custom-button" onClick={handleLogout}>Logout</button>
               </div>
-              <div>
-                <Link
-                  to="/stacks"
-                  className="btn btn-lg custom-button"
-                  role="button"
-                >
-                  Track.it
-                </Link>
+              <div className="footer mt-auto w-100 button-footer d-flex align-items-center">
                 <Link
                   to="/stack"
-                  className="btn btn-lg custom-button"
+                  className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
                   role="button"
                 >
-                  Add Stack
+                  <img className="footer-img" src={addImg} alt="add-stack" />
+                  <p className="mb-0">Add stack</p>
+                </Link>
+                <Link
+                  to="/stacks"
+                  className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
+                  role="button"
+                >
+                  <img className="footer-img" src={trackIt} alt="add-stack" />
+                  <p className="mb-0">Track.it</p>
                 </Link>
                 <Link
                   to="/progress"
-                  className="btn btn-lg custom-button"
+                  className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
                   role="button"
                 >
-                  Your progress
+                  <img className="footer-img" src={progress} alt="add-stack" />
+                  <p className="mb-0">Your progress</p>
                 </Link>
                 <Link
                   to="/"
-                  className="btn btn-lg custom-button"
+                  className="btn btn-lg custom-button w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
                   role="button"
                 >
-                  Home
+                  <img className="footer-img" src={home} alt="add-stack" />
+                  <p className="mb-0">Home</p>
                 </Link>
               </div>
             </div>

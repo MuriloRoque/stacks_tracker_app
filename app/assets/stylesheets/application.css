@@ -1,44 +1,33 @@
-.bg_primary-color {
-  background-color: #fff;
+html {
+  height: 100%;
+  font-size: 62.5%;
 }
 
-.primary-color {
-  background-color: #fff;
+body {
+  height: 100%;
 }
 
-.bg_secondary-color {
-  background-color: #293241;
+#root {
+  height: 100%;
 }
 
-.secondary-color {
-  color: #293241;
+.button-footer {
+  height: 10%;
+  background-color: #313944;
+  position: fixed;
+  bottom: 0;
 }
 
-.custom-button.btn {
-  background-color: #293241;
-  color: #fff;
-  border: none;
+.button-footer .btn {
+  color: #acafb4;
+  font-size: 0.8rem;
 }
 
-.custom-button.btn:hover {
+.footer-img {
+  width: 30%;
+}
+
+.active {
+  background-color: #41b5e8 !important;
   color: #fff !important;
-  border: none;
-}
-
-.hero {
-  width: 100vw;
-  height: 50vh;
-}
-
-.hero img {
-  object-fit: cover;
-  object-position: top;
-  height: 100%;
-  width: 100%;
-}
-
-.overlay {
-  height: 100%;
-  width: 100%;
-  opacity: 0.4;
 }
