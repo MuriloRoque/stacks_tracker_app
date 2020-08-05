@@ -60,7 +60,7 @@ In this project I:
 
 ## Live Demo
 
-[Click here to see it on Netlify!](https://murilo-stacks-tracker.herokuapp.com/)
+[Click here to see it on Heroku!](https://murilo-stacks-tracker.herokuapp.com/)
 
 ## Getting Started
 
