@@ -3,12 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { PieChart } from 'react-minimal-pie-chart';
 import { feedProgress } from '../actions/index';
 import addImg from '../../assets/images/add-stack.png';
 import home from '../../assets/images/home.png';
 import trackIt from '../../assets/images/track-it.png';
 import progressimg from '../../assets/images/progress.png';
-import { PieChart } from 'react-minimal-pie-chart';
 
 const Progress = ({ progress, feedProgress, loginStatus }) => {
   const history = useHistory();
@@ -29,9 +29,9 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
     if (goal === 0) {
       return 100;
     }
-    const percentage = hours / goal * 100
-    return percentage >= 100 ? 100 : percentage 
-  }
+    const percentage = (hours / goal) * 100;
+    return percentage >= 100 ? 100 : Math.round(percentage);
+  };
 
   useEffect(() => {
     fetchProgress();
@@ -40,29 +40,49 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
   const allProgress = (
     <div>
       <div className="d-flex flex-column justify-content-arount align-items-center">
-        <div className='mb-3 p-3 d-flex flex-column align-items-center justify-content-around stats-ctn'>
+        <div className="mb-3 p-3 d-flex flex-column align-items-center justify-content-around stats-ctn">
           <PieChart
-            data={[{ value: 1, key: 1, color: '#8ce08a', key: `${result(progress.total_hours, progress.total_hours_goal)} %` }]}
+            data={[{
+              value: 1, color: '#8ce08a', key: `${result(progress.total_hours, progress.total_hours_goal)} %`,
+            }]}
             reveal={result(progress.total_hours, progress.total_hours_goal)}
             lineWidth={20}
             animate
-            className='pie-chart mb-3'
+            className="pie-chart mb-3"
             label={({ dataEntry }) => dataEntry.key}
-            labelStyle={{fontSize: '1.6rem'}}
+            labelStyle={{ fontSize: '1.6rem' }}
           />
-          <p className='text-center'>{progress.total_hours} / {progress.total_hours_goal} hours completed</p>
+          <p className="text-center">
+            {progress.total_hours}
+            {' '}
+            /
+            {' '}
+            {progress.total_hours_goal}
+            {' '}
+            hours completed
+          </p>
         </div>
-        <div className='p-3 d-flex flex-column align-items-center justify-content-around stats-ctn'>
+        <div className="p-3 d-flex flex-column align-items-center justify-content-around stats-ctn">
           <PieChart
-            data={[{ value: 1, key: 1, color: '#8ce08a', key: `${result(progress.total_projects, progress.total_projects_goal)} %` }]}
+            data={[{
+              value: 1, color: '#8ce08a', key: `${result(progress.total_projects, progress.total_projects_goal)} %`,
+            }]}
             reveal={result(progress.total_projects, progress.total_projects_goal)}
             lineWidth={20}
             animate
-            className='pie-chart mb-3'
+            className="pie-chart mb-3"
             label={({ dataEntry }) => dataEntry.key}
-            labelStyle={{fontSize: '1.6rem'}}
+            labelStyle={{ fontSize: '1.6rem' }}
           />
-          <p className='text-center'>{progress.total_projects} / {progress.total_projects_goal} projects completed</p>
+          <p className="text-center">
+            {progress.total_projects}
+            {' '}
+            /
+            {' '}
+            {progress.total_projects_goal}
+            {' '}
+            projects completed
+          </p>
         </div>
       </div>
     </div>
@@ -70,10 +90,10 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
 
   return (
     <>
-      <div className='header-title'>
+      <div className="header-title">
         Progress report
       </div>
-      <div className="py-4">
+      <div className="py-10">
         <main className="container">
           <div className="text-center">
             {allProgress}

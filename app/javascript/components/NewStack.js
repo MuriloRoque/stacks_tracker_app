@@ -48,13 +48,13 @@ const NewStack = ({
   return (
     <div>
       <div className="row mx-0">
-        <div className="col-sm-12 col-lg-6 offset-lg-3 px-0">
-          <div className='header-title'>
+        <div className="w-100 px-0">
+          <div className="header-title">
             Add stack
           </div>
-          <form className='add-stack p-5' onSubmit={handleSubmit}>
+          <form className="add-stack px-5 pt-5 py-10" onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="stackName">
+              <label className="w-100" htmlFor="stackName">
                 Stack name
                 <input
                   type="text"
@@ -68,7 +68,7 @@ const NewStack = ({
               </label>
             </div>
             <div className="form-group">
-              <label htmlFor="stackHours">
+              <label className="w-100" htmlFor="stackHours">
                 Hours completed
                 <input
                   type="number"
@@ -85,7 +85,7 @@ const NewStack = ({
               </label>
             </div>
             <div className="form-group">
-              <label htmlFor="stackHoursGoal">
+              <label className="w-100" htmlFor="stackHoursGoal">
                 Hours goal
                 <input
                   type="number"
@@ -102,7 +102,7 @@ const NewStack = ({
               </label>
             </div>
             <div className="form-group">
-              <label htmlFor="stackProjects">
+              <label className="w-100" htmlFor="stackProjects">
                 Projects completed
                 <input
                   type="number"
@@ -119,7 +119,7 @@ const NewStack = ({
               </label>
             </div>
             <div className="form-group">
-              <label htmlFor="stackProjectsGoal">
+              <label className="w-100" htmlFor="stackProjectsGoal">
                 Projects goal
                 <input
                   type="number"
@@ -136,7 +136,7 @@ const NewStack = ({
               </label>
             </div>
             <div>
-              <h4 className='red-error'>{stack.createErrors}</h4>
+              <h4 className="red-error">{stack.createErrors}</h4>
             </div>
             <button type="submit" className="btn mt-3 custom-button">
               Create Stack

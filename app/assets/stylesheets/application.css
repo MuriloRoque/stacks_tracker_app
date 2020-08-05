@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+  height: 100vh;
   font-size: 62.5%;
 }
 
@@ -14,6 +14,7 @@ body {
 
 .login-page {
   background-color: #349ece;
+  height: 100vh;
 }
 
 .login-page h1 {
@@ -34,8 +35,24 @@ body {
   color: #acafb4 !important;
   border-radius: 0 !important;
   border: 0.1rem solid #acafb470 !important;
-  height: 3rem !important;
   font-size: 1.5rem !important;
+}
+
+.login-page .custom-button {
+  width: 290px !important;
+  margin: 0 auto;
+}
+
+.login-page input {
+  width: 290px !important;
+}
+
+.login-page form {
+  margin: 0 auto !important;
+}
+
+.py-10 {
+  padding-bottom: 10rem !important;
 }
 
 .header-title {
@@ -65,16 +82,13 @@ body {
 
 .logout-button .btn {
   font-size: 1.5rem !important;
+  background-color: transparent !important;
+  color: #97a3b0 !important;
+  font-weight: 700;
 }
 
 .logout-button .logout-img {
   width: 5%;
-}
-
-.logout-button .btn {
-  background-color: transparent !important;
-  color: #97a3b0 !important;
-  font-weight: 700;
 }
 
 .add-stack {
@@ -92,7 +106,7 @@ body {
 }
 
 .pie-chart-ctn {
-  background-color: #fff;  
+  background-color: #fff;
 }
 
 .stats-ctn {
@@ -102,7 +116,7 @@ body {
 }
 
 .red-error {
-  color: #ff0000;
+  color: #f00;
 }
 
 .stack-img {
@@ -110,7 +124,7 @@ body {
 }
 
 .delete-btn {
-  background-color: #ff0000 !important;
+  background-color: #f00 !important;
   color: #fff !important;
   font-weight: 700;
 }
@@ -127,7 +141,7 @@ body {
 
 .button-footer .btn {
   color: #acafb4;
-  font-size: 10%;
+  font-size: 1rem;
 }
 
 .footer-img {
@@ -137,4 +151,28 @@ body {
 .active {
   background-color: #41b5e8 !important;
   color: #fff !important;
+}
+
+@media (min-width: 600px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+@media (min-width: 800px) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@media (min-width: 1200px) {
+  html {
+    font-size: 95%;
+  }
 }

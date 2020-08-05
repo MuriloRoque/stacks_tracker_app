@@ -3,12 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { PieChart } from 'react-minimal-pie-chart';
 import { feedStacks } from '../actions/index';
 import addImg from '../../assets/images/add-stack.png';
 import home from '../../assets/images/home.png';
 import trackIt from '../../assets/images/track-it.png';
 import progress from '../../assets/images/progress.png';
-import { PieChart } from 'react-minimal-pie-chart';
 
 const Stacks = ({ stacks, feedStacks, loginStatus }) => {
   const history = useHistory();
@@ -29,27 +29,29 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
     if (hoursGoal + projectsGoal === 0) {
       return 100;
     }
-    const percentage = (hours + projects) / (hoursGoal + projectsGoal) * 100
-    return percentage >= 100 ? 100 : percentage 
-  }
+    const percentage = ((hours + projects) / (hoursGoal + projectsGoal)) * 100;
+    return percentage >= 100 ? 100 : Math.round(percentage);
+  };
 
   useEffect(() => {
     fetchStacks();
   }, []);
 
   const allStacks = stacks.map(stack => (
-    <div key={stack.id} className="col-md-6 col-lg-4 p-0">
+    <div key={stack.id} className="p-0">
       <div className="card mb-5 each-stack">
         <div className="card-body d-flex justify-content-between align-items-center">
-        <PieChart
-          data={[{ value: 1, key: 1, color: '#8ce08a', key: 'Progress' }]}
-          reveal={result(stack.hours, stack.hours_goal, stack.projects, stack.projects_goal)}
-          lineWidth={20}
-          animate
-          className='pie-chart'
-          label={({ dataEntry }) => dataEntry.key}
-          labelStyle={{fontSize: '1.4rem'}}
-        />
+          <PieChart
+            data={[{
+              value: 1, color: '#8ce08a', key: `${result(stack.hours, stack.hours_goal, stack.projects, stack.projects_goal)} %`,
+            }]}
+            reveal={result(stack.hours, stack.hours_goal, stack.projects, stack.projects_goal)}
+            lineWidth={20}
+            animate
+            className="pie-chart"
+            label={({ dataEntry }) => dataEntry.key}
+            labelStyle={{ fontSize: '1.4rem' }}
+          />
           <h5 className="card-title m-0">{stack.name}</h5>
           <Link
             to={{
@@ -73,7 +75,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
   ));
 
   const noStack = (
-    <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+    <div className="d-flex align-items-center justify-content-center">
       <h4>
         No stacks yet. Why not create one?
       </h4>
@@ -82,12 +84,12 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
 
   return (
     <>
-      <div className='header-title'>
+      <div className="header-title">
         Track.it
       </div>
-      <div className="py-4">
+      <div className="py-10">
         <main className="container p-0">
-          <div className="row m-0">
+          <div className="m-0">
             {stacks.length > 0 ? allStacks : noStack}
           </div>
         </main>

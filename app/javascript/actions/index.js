@@ -18,10 +18,6 @@ export const logout = () => ({
   type: types.LOGOUT,
 });
 
-export const loading = () => ({
-  type: types.LOADING,
-});
-
 export const feedStacks = data => ({
   type: types.FEED_STACKS,
   data,

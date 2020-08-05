@@ -31,9 +31,9 @@ const Registration = ({ user, updateData, login }) => {
   };
 
   return (
-    <div className="d-flex flex-column h-100 justify-content-around align-items-center login-page">
+    <div className="d-flex flex-column justify-content-around align-items-center login-page">
       <div className="row">
-        <div className="col-sm-12 col-lg-6 offset-lg-3">
+        <div>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="userEmail">
@@ -87,7 +87,7 @@ const Registration = ({ user, updateData, login }) => {
               </small>
             </div>
             <div>
-              <h4 className='red-error'>{user.registrationErrors}</h4>
+              <h4 className="red-error">{user.registrationErrors}</h4>
             </div>
             <button type="submit" className="btn custom-button mt-3">
               Create User
