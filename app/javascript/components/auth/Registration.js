@@ -19,7 +19,7 @@ const Registration = ({ user, updateData, login }) => {
   };
 
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/registrations', { user },
+    axios.post('https://murilo-stacks-tracker.herokuapp.com/registrations', { user },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         successfulAuth(response.data.user.id);

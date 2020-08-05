@@ -22,7 +22,7 @@ const Stack = ({
     if (loginStatus === 'NOT_LOGGED_IN') {
       history.push('/');
     }
-    axios.get(`http://localhost:3000/api/v1/show/${id}`, { withCredentials: true })
+    axios.get(`https://murilo-stacks-tracker.herokuapp.com/api/v1/show/${id}`, { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
           createStack('name', response.data.name);
@@ -35,7 +35,7 @@ const Stack = ({
   };
 
   const deleteStack = () => {
-    axios.delete(`http://localhost:3000/api/v1/destroy/${id}`, { withCredentials: true })
+    axios.delete(`https://murilo-stacks-tracker.herokuapp.com/api/v1/destroy/${id}`, { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
           history.push('/stacks');

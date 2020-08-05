@@ -34,7 +34,7 @@ const NewStack = ({
   };
 
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/api/v1/stacks/create', { stack },
+    axios.post('https://murilo-stacks-tracker.herokuapp.com/api/v1/stacks/create', { stack },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         successfulCreate(response.data.stack.id);

@@ -31,7 +31,7 @@ const EditStack = ({
   }, [createStack]);
 
   const handleSubmit = e => {
-    axios.put(`http://localhost:3000/api/v1/update/${id}`, { stack },
+    axios.put(`https://murilo-stacks-tracker.herokuapp.com/api/v1/update/${id}`, { stack },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         history.push(`/stack/${id}`);

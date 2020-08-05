@@ -17,7 +17,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
     if (loginStatus === 'NOT_LOGGED_IN') {
       history.push('/');
     }
-    axios.get('http://localhost:3000/api/v1/stacks/index', { withCredentials: true })
+    axios.get('https://murilo-stacks-tracker.herokuapp.com/api/v1/stacks/index', { withCredentials: true })
       .then(response => {
         if (response.statusText === 'OK') {
           feedStacks(response.data);

@@ -16,7 +16,7 @@ const Home = ({
   loginStatus, updateData, login, logout, resetData, user,
 }) => {
   const checkLoginStatus = () => {
-    axios.get('http://localhost:3000/logged_in', { withCredentials: true })
+    axios.get('https://murilo-stacks-tracker.herokuapp.com/logged_in', { withCredentials: true })
       .then(response => {
         if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
           login();
@@ -33,7 +33,7 @@ const Home = ({
   }, [checkLoginStatus]);
 
   const handleLogout = () => {
-    axios.delete('http://localhost:3000/logout', { withCredentials: true })
+    axios.delete('https://murilo-stacks-tracker.herokuapp.com/logout', { withCredentials: true })
       .then(() => {
         logout();
         resetData();
