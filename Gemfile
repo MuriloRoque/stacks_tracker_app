@@ -3,8 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.5'
 
-# Gem for ESlint
-gem 'eslint-rails'
 # Gems for User authentication
 gem 'jwt'
 gem 'knock', github: 'nsarno/knock', branch: 'master',
