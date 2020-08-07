@@ -149,17 +149,17 @@ body {
   width: 30%;
 }
 
-.footer-btn:active{
+.footer-btn:active {
   background-color: #41b5e8 !important;
   color: #fff !important;
 }
 
-.footer-btn:focus{
+.footer-btn:focus {
   background-color: #41b5e8 !important;
   color: #fff !important;
 }
 
-.footer-btn:visited{
+.footer-btn:visited {
   background-color: #41b5e8 !important;
   color: #fff !important;
 }

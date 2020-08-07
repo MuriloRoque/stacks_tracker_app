@@ -1,41 +1,17 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {
-  login, updateData, logout, resetData,
-} from '../actions/index';
+import { checkLoginStatus, handleLogout } from '../actions/index';
 import logoutIcon from '../../assets/images/logout.png';
 import Footer from './Footer';
 
 const Home = ({
-  loginStatus, updateData, login, logout, resetData, user,
+  loginStatus, user, checkLoginStatus, handleLogout,
 }) => {
-  const checkLoginStatus = () => {
-    axios.get('http://localhost:3000/api/v1/logged_in', { withCredentials: true })
-      .then(response => {
-        if (response.data.logged_in && loginStatus === 'NOT_LOGGED_IN') {
-          login();
-          updateData('email', response.data.user.email);
-        } else if (!response.data.logged_in && loginStatus === 'LOGGED_IN') {
-          logout();
-          resetData();
-        }
-      });
-  };
-
   useEffect(() => {
-    checkLoginStatus();
+    checkLoginStatus(loginStatus);
   }, [checkLoginStatus]);
-
-  const handleLogout = () => {
-    axios.delete('http://localhost:3000/api/v1/logout', { withCredentials: true })
-      .then(() => {
-        logout();
-        resetData();
-      });
-  };
 
   return (
     <div className="h-100">
@@ -78,10 +54,8 @@ const Home = ({
 
 Home.propTypes = {
   loginStatus: PropTypes.string.isRequired,
-  updateData: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  resetData: PropTypes.func.isRequired,
+  checkLoginStatus: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
@@ -93,10 +67,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateData: (name, data) => dispatch(updateData(name, data)),
-  login: () => dispatch(login()),
-  logout: () => dispatch(logout()),
-  resetData: () => dispatch(resetData()),
+  checkLoginStatus: loginStatus => dispatch(checkLoginStatus(loginStatus)),
+  handleLogout: () => dispatch(handleLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

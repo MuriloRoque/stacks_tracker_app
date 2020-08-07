@@ -1,26 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
-import { feedStacks } from '../actions/index';
+import { fetchStacks } from '../actions/index';
 import Footer from './Footer';
 
-const Stacks = ({ stacks, feedStacks, loginStatus }) => {
+const Stacks = ({ stacks, fetchStacks, loginStatus }) => {
   const history = useHistory();
-
-  const fetchStacks = () => {
-    if (loginStatus === 'NOT_LOGGED_IN') {
-      history.push('/');
-    }
-    axios.get('http://localhost:3000/api/v1/stacks/index', { withCredentials: true })
-      .then(response => {
-        if (response.statusText === 'OK') {
-          feedStacks(response.data);
-        }
-      });
-  };
 
   const result = (hours, hoursGoal, projects, projectsGoal) => {
     if (hoursGoal + projectsGoal === 0) {
@@ -31,7 +18,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
   };
 
   useEffect(() => {
-    fetchStacks();
+    fetchStacks(loginStatus, history);
   }, []);
 
   const allStacks = stacks.map(stack => (
@@ -97,7 +84,7 @@ const Stacks = ({ stacks, feedStacks, loginStatus }) => {
 };
 
 Stacks.propTypes = {
-  feedStacks: PropTypes.func.isRequired,
+  fetchStacks: PropTypes.func.isRequired,
   stacks: PropTypes.instanceOf(Array).isRequired,
   loginStatus: PropTypes.string.isRequired,
 };
@@ -108,7 +95,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  feedStacks: data => dispatch(feedStacks(data)),
+  fetchStacks: (loginStatus, history) => dispatch(fetchStacks(loginStatus, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stacks);

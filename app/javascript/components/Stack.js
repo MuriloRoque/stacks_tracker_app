@@ -1,44 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { PieChart } from 'react-minimal-pie-chart';
-import { createStack } from '../actions/index';
+import { fetchStack, deleteStack } from '../actions/index';
 import Footer from '../containers/Footer';
 import projectsImg from '../../assets/images/projects.png';
 import hoursImg from '../../assets/images/hours.png';
 
 const Stack = ({
-  loginStatus, createStack, match, stack,
+  loginStatus, match, stack, fetchStack,
 }) => {
   const { id } = match.params;
   const history = useHistory();
-
-  const fetchStack = () => {
-    if (loginStatus === 'NOT_LOGGED_IN') {
-      history.push('/');
-    }
-    axios.get(`http://localhost:3000/api/v1/show/${id}`, { withCredentials: true })
-      .then(response => {
-        if (response.statusText === 'OK') {
-          createStack('name', response.data.name);
-          createStack('hours', response.data.hours);
-          createStack('hoursGoal', response.data.hours_goal);
-          createStack('projects', response.data.projects);
-          createStack('projectsGoal', response.data.projects_goal);
-        }
-      });
-  };
-
-  const deleteStack = () => {
-    axios.delete(`http://localhost:3000/api/v1/destroy/${id}`, { withCredentials: true })
-      .then(response => {
-        if (response.statusText === 'OK') {
-          history.push('/stacks');
-        }
-      });
-  };
 
   const result = (hours, goal) => {
     if (goal === 0) {
@@ -48,8 +22,13 @@ const Stack = ({
     return percentage >= 100 ? 100 : Math.round(percentage);
   };
 
+  const handleDelete = e => {
+    e.preventDefault();
+    deleteStack(id, history);
+  };
+
   useEffect(() => {
-    fetchStack();
+    fetchStack(loginStatus, history, id);
   }, []);
 
   return (
@@ -124,7 +103,7 @@ const Stack = ({
             >
               Edit Stack
             </Link>
-            <button onClick={deleteStack} type="button" className="btn btn-lg custom-button delete-btn">
+            <button onClick={handleDelete} type="button" className="btn btn-lg custom-button delete-btn">
               Delete Stack
             </button>
           </div>
@@ -137,7 +116,7 @@ const Stack = ({
 
 Stack.propTypes = {
   loginStatus: PropTypes.string.isRequired,
-  createStack: PropTypes.func.isRequired,
+  fetchStack: PropTypes.func.isRequired,
   stack: PropTypes.shape({
     name: PropTypes.string.isRequired,
     hours: PropTypes.oneOfType([
@@ -170,7 +149,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createStack: (name, data) => dispatch(createStack(name, data)),
+  fetchStack: (loginStatus, history, id) => dispatch(fetchStack(loginStatus, history, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stack);

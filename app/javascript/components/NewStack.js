@@ -1,45 +1,26 @@
 import React, { useCallback, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createStack } from '../actions/index';
+import { createStack, checkLogin, submitNew } from '../actions/index';
 import Footer from '../containers/Footer';
 
 const NewStack = ({
-  stack, createStack, loginStatus, user,
+  stack, createStack, loginStatus, user, checkLogin,
 }) => {
   const history = useHistory();
 
-  const checkLoginStatus = () => {
-    if (loginStatus === 'NOT_LOGGED_IN') {
-      history.push('/');
-    }
-    createStack('userId', user.userId);
-  };
-
   useEffect(() => {
-    checkLoginStatus();
+    checkLogin(loginStatus, user, history);
   }, []);
 
   const createDataChange = useCallback(e => {
     createStack(e.target.name, e.target.value);
   }, [createStack]);
 
-  const successfulCreate = id => {
-    history.push(`/stack/${id}`);
-  };
-
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/api/v1/stacks/create', { stack: { name: stack.name, hours: stack.hours, hours_goal: stack.hoursGoal, projects: stack.projects, projects_goal: stack.projectsGoal, user_id: stack.userId } },
-      { withCredentials: true }).then(response => {
-      if (response.data.status === 'created') {
-        successfulCreate(response.data.stack.id);
-      }
-    }).catch(error => {
-      createStack('createErrors', error.response.statusText);
-    });
     e.preventDefault();
+    submitNew(history, stack);
   };
 
   return (
@@ -169,6 +150,7 @@ NewStack.propTypes = {
   }).isRequired,
   createStack: PropTypes.func.isRequired,
   loginStatus: PropTypes.string.isRequired,
+  checkLogin: PropTypes.func.isRequired,
   user: PropTypes.shape({
     userId: PropTypes.oneOfType([
       PropTypes.string,
@@ -189,6 +171,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createStack: (name, data) => dispatch(createStack(name, data)),
+  checkLogin: (loginStatus, user, history) => dispatch(checkLogin(loginStatus, user, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewStack);

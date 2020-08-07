@@ -1,26 +1,13 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
-import { feedProgress } from '../actions/index';
+import { fetchProgress } from '../actions/index';
 import Footer from './Footer';
 
-const Progress = ({ progress, feedProgress, loginStatus }) => {
+const Progress = ({ progress, fetchProgress, loginStatus }) => {
   const history = useHistory();
-
-  const fetchProgress = () => {
-    if (loginStatus === 'NOT_LOGGED_IN') {
-      history.push('/');
-    }
-    axios.get('http://localhost:3000/api/v1/stacks/progress', { withCredentials: true })
-      .then(response => {
-        if (response.statusText === 'OK') {
-          feedProgress(response.data.progress);
-        }
-      });
-  };
 
   const result = (hours, goal) => {
     if (goal === 0) {
@@ -31,7 +18,7 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
   };
 
   useEffect(() => {
-    fetchProgress();
+    fetchProgress(loginStatus, history);
   }, []);
 
   const allProgress = (
@@ -103,7 +90,7 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
 };
 
 Progress.propTypes = {
-  feedProgress: PropTypes.func.isRequired,
+  fetchProgress: PropTypes.func.isRequired,
   progress: PropTypes.shape({
     total_hours: PropTypes.number.isRequired,
     total_hours_goal: PropTypes.number.isRequired,
@@ -119,7 +106,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  feedProgress: data => dispatch(feedProgress(data)),
+  fetchProgress: (loginStatus, history) => dispatch(fetchProgress(loginStatus, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progress);

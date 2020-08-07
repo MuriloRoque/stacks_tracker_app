@@ -1,26 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { createStack } from '../actions/index';
+import { checkLogin, submitEdit, createStack } from '../actions/index';
 import Footer from '../containers/Footer';
 
 const EditStack = ({
-  stack, createStack, loginStatus, user, match,
+  stack, createStack, loginStatus, user, match, checkLogin,
 }) => {
   const history = useHistory();
   const { id } = match.params;
 
-  const checkLoginStatus = () => {
-    if (loginStatus === 'NOT_LOGGED_IN') {
-      history.push('/');
-    }
-    createStack('userId', user.userId);
-  };
-
   useEffect(() => {
-    checkLoginStatus();
+    checkLogin(loginStatus, user, history, createStack);
   }, []);
 
   const createDataChange = useCallback(e => {
@@ -28,15 +20,8 @@ const EditStack = ({
   }, [createStack]);
 
   const handleSubmit = e => {
-    axios.put(`http://localhost:3000/api/v1/update/${id}`, { stack: { name: stack.name, hours: stack.hours, hours_goal: stack.hoursGoal, projects: stack.projects, projects_goal: stack.projectsGoal, user_id: stack.userId } },
-      { withCredentials: true }).then(response => {
-      if (response.data.status === 'created') {
-        history.push(`/stack/${id}`);
-      }
-    }).catch(error => {
-      createStack('createErrors', error.response.statusText);
-    });
     e.preventDefault();
+    submitEdit(history, id, stack);
   };
 
   return (
@@ -173,6 +158,7 @@ EditStack.propTypes = {
     createErrors: PropTypes.string.isRequired,
   }).isRequired,
   createStack: PropTypes.func.isRequired,
+  checkLogin: PropTypes.func.isRequired,
   loginStatus: PropTypes.string.isRequired,
   user: PropTypes.shape({
     userId: PropTypes.number.isRequired,
@@ -192,6 +178,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   createStack: (name, data) => dispatch(createStack(name, data)),
+  checkLogin: (loginStatus, user, history) => dispatch(checkLogin(loginStatus, user, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditStack);

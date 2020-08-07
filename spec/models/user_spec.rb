@@ -6,7 +6,7 @@ describe User do
   describe 'associations' do
     subject { user }
 
-    it { should have_many(:stacks) }
+    it { should have_many(:stacks).dependent(:destroy) }
   end
 
   describe 'validations' do

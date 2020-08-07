@@ -6,7 +6,7 @@ describe Stack do
   describe 'associations' do
     subject { stack }
 
-    it { should belong_to(:user).dependent(:destroy) }
+    it { should belong_to(:user) }
   end
 
   describe 'validations' do

@@ -1,34 +1,19 @@
 import React, { useCallback } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { updateData, login } from '../../actions/index';
+import { submitLogin, updateData } from '../../actions/index';
 
-const Login = ({ user, updateData, login }) => {
+const Login = ({ user, updateData, submitLogin }) => {
   const history = useHistory();
 
-  const updateDataChange = useCallback(event => {
-    updateData(event.target.name, event.target.value);
+  const updateDataChange = useCallback(e => {
+    updateData(e.target.name, e.target.value);
   }, [updateData]);
 
-  const successfulAuth = id => {
-    login();
-    updateData('userId', id);
-    history.push('/');
-  };
-
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/api/v1/sessions', { user },
-      { withCredentials: true }).then(response => {
-      if (response.data.logged_in) {
-        successfulAuth(response.data.user.id);
-      }
-      else {
-        updateData('loginErrors', 'Wrong e-mail or password');
-      }
-    })
     e.preventDefault();
+    submitLogin(history, user);
   };
 
   return (
@@ -89,7 +74,7 @@ Login.propTypes = {
     loginErrors: PropTypes.string.isRequired,
   }).isRequired,
   updateData: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
+  submitLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -98,7 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateData: (name, data) => dispatch(updateData(name, data)),
-  login: () => dispatch(login()),
+  submitLogin: (history, user) => dispatch(submitLogin(history, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

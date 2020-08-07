@@ -12,7 +12,6 @@ describe Api::V1::StacksController do
 
     context 'as user' do
       it { is_expected.to be_successful }
-      
     end
   end
 
@@ -36,7 +35,14 @@ describe Api::V1::StacksController do
 
     context 'as user' do
       context 'with valid params' do
-        let(:stack_params) { { name: 'Title', hours: 5, hours_goal: 5, projects: 5, projects_goal: 5, user_id: user.id } }
+        let(:stack_params) do
+          { name: 'Title',
+            hours: 5,
+            hours_goal: 5,
+            projects: 5,
+            projects_goal: 5,
+            user_id: user.id }
+        end
 
         it 'creates a stack' do
           expect { subject }.to change(Stack, :count).by(1)
@@ -44,7 +50,14 @@ describe Api::V1::StacksController do
       end
 
       context 'with valid params' do
-        let(:stack_params) { { name: 'Title', hours: 5, hours_goal: 5, projects: 5, projects_goal: 5, user_id: user.id } }
+        let(:stack_params) do
+          { name: 'Title',
+            hours: 5,
+            hours_goal: 5,
+            projects: 5,
+            projects_goal: 5,
+            user_id: user.id }
+        end
         it { is_expected.to have_http_status(200) }
       end
     end
