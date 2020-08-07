@@ -18,23 +18,23 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def show
-    if @stack
-      render json: @stack
+    if @set_stack
+      render json: @set_stack
     else
-      render json: @stack.errors
+      render json: @set_stack.errors
     end
   end
 
   def update
-    if @stack.update(stack_params)
-      render json: { status: :created, stack: @stack }
+    if @set_stack.update(stack_params)
+      render json: { status: :created, stack: @set_stack }
     else
-      render json: @stack.errors
+      render json: @set_stack.errors
     end
   end
 
   def destroy
-    @stack&.destroy
+    @set_stack&.destroy
     render json: { message: 'Stack deleted!' }
   end
 
@@ -51,6 +51,6 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def set_stack
-    @stack ||= Stack.find(params[:id])
+    @set_stack ||= Stack.find(params[:id])
   end
 end
