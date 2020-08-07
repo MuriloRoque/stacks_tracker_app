@@ -3,6 +3,18 @@ require 'rails_helper'
 describe Api::V1::StacksController do
   let(:user) { create(:user) }
   let(:stack) { create(:stack) }
+  before do
+    session[:user_id] = user.id
+  end
+
+  describe '#index' do
+    subject { get 'index' }
+
+    context 'as user' do
+      it { is_expected.to be_successful }
+      
+    end
+  end
 
   describe '#show' do
     subject { get 'show', params: { id: stack.id } }
@@ -24,7 +36,7 @@ describe Api::V1::StacksController do
 
     context 'as user' do
       context 'with valid params' do
-        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+        let(:stack_params) { { name: 'Title', hours: 5, hours_goal: 5, projects: 5, projects_goal: 5, user_id: user.id } }
 
         it 'creates a stack' do
           expect { subject }.to change(Stack, :count).by(1)
@@ -32,7 +44,7 @@ describe Api::V1::StacksController do
       end
 
       context 'with valid params' do
-        let(:stack_params) { { name: 'Title', hours: 5, hoursGoal: 5, projects: 5, projectsGoal: 5, userId: user.id } }
+        let(:stack_params) { { name: 'Title', hours: 5, hours_goal: 5, projects: 5, projects_goal: 5, user_id: user.id } }
         it { is_expected.to have_http_status(200) }
       end
     end
@@ -69,6 +81,19 @@ describe Api::V1::StacksController do
     context 'as user' do
       it 'removes requested record' do
         expect { subject }.to change(Stack, :count).by(-1)
+      end
+    end
+  end
+
+  describe '#progress' do
+    subject { get 'progress' }
+
+    context 'as user' do
+      it { is_expected.to be_successful }
+
+      it 'returns valid JSON' do
+        body = JSON.parse(subject.body)
+        expect(body.length).to eq(1)
       end
     end
   end

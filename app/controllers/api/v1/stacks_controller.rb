@@ -1,5 +1,6 @@
 class Api::V1::StacksController < ApplicationController
   include CurrentUserConcern
+  before_action :set_current_user
   before_action :set_stack, only: %i[show update destroy]
 
   def index
