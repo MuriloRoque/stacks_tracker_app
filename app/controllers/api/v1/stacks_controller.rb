@@ -1,5 +1,6 @@
 class Api::V1::StacksController < ApplicationController
   include CurrentUserConcern
+  before_action :set_stack, only: %i[show update destroy]
 
   def index
     stack = Stack.user_stacks(@current_user.id).order(created_at: :desc)
@@ -7,12 +8,7 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def create
-    stack = Stack.create!(name: params['stack']['name'],
-                          hours: params['stack']['hours'],
-                          hours_goal: params['stack']['hoursGoal'],
-                          projects: params['stack']['projects'],
-                          projects_goal: params['stack']['projectsGoal'],
-                          user_id: params['stack']['userId'])
+    stack = Stack.create!(stack_params)
     if stack
       render json: { status: :created, stack: stack }
     else
@@ -21,28 +17,23 @@ class Api::V1::StacksController < ApplicationController
   end
 
   def show
-    if stack
-      render json: stack
+    if @stack
+      render json: @stack
     else
-      render json: stack.errors
+      render json: @stack.errors
     end
   end
 
   def update
-    if stack.update(name: params['stack']['name'],
-                    hours: params['stack']['hours'],
-                    hours_goal: params['stack']['hoursGoal'],
-                    projects: params['stack']['projects'],
-                    projects_goal: params['stack']['projectsGoal'],
-                    user_id: params['stack']['userId'])
-      render json: { status: :created, stack: stack }
+    if @stack.update(stack_params)
+      render json: { status: :created, stack: @stack }
     else
-      render json: stack.errors
+      render json: @stack.errors
     end
   end
 
   def destroy
-    stack&.destroy
+    @stack&.destroy
     render json: { message: 'Stack deleted!' }
   end
 
@@ -55,11 +46,10 @@ class Api::V1::StacksController < ApplicationController
   private
 
   def stack_params
-    params.permit(:name, :hours, :hours_goal, :projects, :projects_goal)
+    params.require(:stack).permit(:name, :hours, :hours_goal, :projects, :projects_goal, :user_id)
   end
 
-  def stack
+  def set_stack
     @stack ||= Stack.find(params[:id])
-    @stack
   end
 end

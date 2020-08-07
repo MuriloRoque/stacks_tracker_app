@@ -34,7 +34,7 @@ const NewStack = ({
   };
 
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/api/v1/stacks/create', { stack },
+    axios.post('http://localhost:3000/api/v1/stacks/create', { stack: { name: stack.name, hours: stack.hours, hours_goal: stack.hoursGoal, projects: stack.projects, projects_goal: stack.projectsGoal, user_id: stack.userId } },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         successfulCreate(response.data.stack.id);

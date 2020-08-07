@@ -19,14 +19,15 @@ const Login = ({ user, updateData, login }) => {
   };
 
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/sessions', { user },
+    axios.post('http://localhost:3000/api/v1/sessions', { user },
       { withCredentials: true }).then(response => {
       if (response.data.logged_in) {
         successfulAuth(response.data.user.id);
       }
-    }).catch(error => {
-      updateData('loginErrors', error.response.statusText);
-    });
+      else {
+        updateData('loginErrors', 'Wrong e-mail or password');
+      }
+    })
     e.preventDefault();
   };
 

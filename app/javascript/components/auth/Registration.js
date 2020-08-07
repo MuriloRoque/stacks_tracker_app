@@ -19,14 +19,15 @@ const Registration = ({ user, updateData, login }) => {
   };
 
   const handleSubmit = e => {
-    axios.post('http://localhost:3000/registrations', { user },
+    axios.post('http://localhost:3000/api/v1/registrations', { user: { email: user.email, password: user.password, password_confirmation: user.passwordConfirmation} },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         successfulAuth(response.data.user.id);
       }
-    }).catch(error => {
-      updateData('registrationErrors', error.response.statusText);
-    });
+      else {
+        updateData('registrationErrors', response.data.errors.join("; "));
+      }
+    })
     e.preventDefault();
   };
 
@@ -36,12 +37,12 @@ const Registration = ({ user, updateData, login }) => {
         <div>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="userEmail">
+              <label htmlFor="email">
                 Email
                 <input
                   type="email"
                   name="email"
-                  id="userEmail"
+                  id="email"
                   placeholder="E-mail"
                   className="form-control"
                   autoComplete="email"
@@ -51,12 +52,12 @@ const Registration = ({ user, updateData, login }) => {
               </label>
             </div>
             <div className="form-group">
-              <label htmlFor="userPassword">
+              <label htmlFor="password">
                 Password
                 <input
                   type="password"
                   name="password"
-                  id="userPassword"
+                  id="password"
                   placeholder="Password"
                   className="form-control"
                   autoComplete="new-password"
@@ -69,12 +70,12 @@ const Registration = ({ user, updateData, login }) => {
               </small>
             </div>
             <div className="form-group">
-              <label htmlFor="userPasswordConfirmation">
+              <label htmlFor="passwordConfirmation">
                 Confirm password
                 <input
                   type="password"
-                  name="userPasswordConfirmation"
-                  id="userPasswordConfirmation"
+                  name="passwordConfirmation"
+                  id="passwordConfirmation"
                   placeholder="Password confirmation"
                   className="form-control"
                   autoComplete="new-password"

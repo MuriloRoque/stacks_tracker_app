@@ -117,6 +117,7 @@ body {
 
 .red-error {
   color: #f00;
+  max-width: 290px;
 }
 
 .stack-img {

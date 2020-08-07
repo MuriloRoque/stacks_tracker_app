@@ -31,7 +31,7 @@ const EditStack = ({
   }, [createStack]);
 
   const handleSubmit = e => {
-    axios.put(`http://localhost:3000/api/v1/update/${id}`, { stack },
+    axios.put(`http://localhost:3000/api/v1/update/${id}`, { stack: { name: stack.name, hours: stack.hours, hours_goal: stack.hoursGoal, projects: stack.projects, projects_goal: stack.projectsGoal, user_id: stack.userId } },
       { withCredentials: true }).then(response => {
       if (response.data.status === 'created') {
         history.push(`/stack/${id}`);
