@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { PieChart } from 'react-minimal-pie-chart';
 import { feedProgress } from '../actions/index';
-import addImg from '../../assets/images/add-stack.png';
-import home from '../../assets/images/home.png';
-import trackIt from '../../assets/images/track-it.png';
-import progressimg from '../../assets/images/progress.png';
+import Footer from './Footer';
 
 const Progress = ({ progress, feedProgress, loginStatus }) => {
   const history = useHistory();
@@ -100,40 +97,7 @@ const Progress = ({ progress, feedProgress, loginStatus }) => {
           </div>
         </main>
       </div>
-      <div className="footer mt-auto w-100 button-footer d-flex align-items-center">
-        <Link
-          to="/stack"
-          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
-          role="button"
-        >
-          <img className="footer-img" src={addImg} alt="add-stack" />
-          <p className="mb-0">Add stack</p>
-        </Link>
-        <Link
-          to="/stacks"
-          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
-          role="button"
-        >
-          <img className="footer-img" src={trackIt} alt="add-stack" />
-          <p className="mb-0">Track.it</p>
-        </Link>
-        <Link
-          to="/progress"
-          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between active"
-          role="button"
-        >
-          <img className="footer-img" src={progressimg} alt="add-stack" />
-          <p className="mb-0">Your progress</p>
-        </Link>
-        <Link
-          to="/"
-          className="btn btn-lg w-25 h-100 d-flex flex-column align-items-center py-1 px-0 justify-content-between"
-          role="button"
-        >
-          <img className="footer-img" src={home} alt="add-stack" />
-          <p className="mb-0">Home</p>
-        </Link>
-      </div>
+      <Footer />
     </>
   );
 };
